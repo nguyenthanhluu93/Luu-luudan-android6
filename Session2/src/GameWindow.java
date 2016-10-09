@@ -4,6 +4,8 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Random;
 
 
 /**
@@ -20,6 +22,9 @@ public class GameWindow extends Frame implements Runnable {
     Plane plane;
     Plane plane2;
 
+    Enemy enemy;
+//    ArrayList<Enemy> listEnemy = new ArrayList<>();
+
     private int planeX = 350;
     private int planeY = 250;
     private int planeX2 = 400;
@@ -29,9 +34,14 @@ public class GameWindow extends Frame implements Runnable {
 
         backBufferImage = new BufferedImage(BACKGROUND_WIDTH, BACKGROUND_HEIGHT, BufferedImage.TYPE_INT_ARGB);
 
+
         try {
             plane = new Plane(planeX, planeY, ImageIO.read(new File("resources/plane3.png")));
             plane2 = new Plane(planeX2, planeY2, ImageIO.read(new File("resources/plane4.png")));
+            Random rd = new Random();
+
+            enemy = new Enemy(rd.nextInt(BACKGROUND_WIDTH), 0, ImageIO.read(new File("resources/enemy_plane_white_2.png")));
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -150,10 +160,15 @@ public class GameWindow extends Frame implements Runnable {
         for (int i =0; i < plane2.getListBullet().size(); i++) {
             plane2.getListBullet().get(i).drawImage(backBufferGraphics);
         }
-
+        enemy.drawImage(backBufferGraphics);
+        enemy.move();
+        for (int i=0; i<enemy.getListBullet().size(); i++) {
+            enemy.getListBullet().get(i).drawImage(backBufferGraphics);
+            enemy.getListBullet().get(i).bullet_enemy_fly();
+        }
         g.drawImage(backBufferImage, 0, 0, BACKGROUND_WIDTH, BACKGROUND_HEIGHT, null);
     }
-
+    int count = 0;
     public void run() {
         while (true) {
             try {
@@ -164,6 +179,18 @@ public class GameWindow extends Frame implements Runnable {
                 for (int i = 0; i < plane2.getListBullet().size(); i++) {
                     plane2.getListBullet().get(i).fly();
                 }
+
+                    count++;
+                    if (count > 30) {
+                        count =0;
+                        enemy.createBullet();
+                        for (int i=0; i< enemy.getListBullet().size(); i++) {
+                            enemy.getListBullet().get(i).bullet_enemy_fly();
+                        }
+
+                }
+
+
                 repaint();
             } catch (InterruptedException e) {
                 e.printStackTrace();

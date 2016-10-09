@@ -20,6 +20,10 @@ public class Bullet {
         y -= 10;
     }
 
+    public void bullet_enemy_fly() {
+        y += 10;
+    }
+
     public void drawImage(Graphics g) {
         g.drawImage(image, x, y, null);
     }
