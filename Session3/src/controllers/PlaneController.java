@@ -56,6 +56,15 @@ public class PlaneController {
         }
     }
 
+    public void mouseClicked(MouseEvent e) {
+        BulletController bulletController = new BulletController(
+                new Bullet(plane.getMiddleX(), plane.getY()),
+                new BulletView(Utils.loadImageFromRes("bullet.png"))
+        );
+        bulletControllerVector.add(bulletController);
+
+    }
+
     public void keyReleased(KeyEvent e) {
         System.out.println("keyReleased");
         switch (e.getKeyCode()) {
