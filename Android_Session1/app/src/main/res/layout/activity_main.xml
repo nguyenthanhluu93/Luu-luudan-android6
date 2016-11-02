@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="luunt.android_session1.MainActivity">
+
+    <TextView
+        android:id="@+id/tv_weight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/weight" />
+
+    <EditText
+        android:id="@+id/et_weight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_weight"
+        android:padding="@dimen/edt_padding"
+        android:background="@drawable/bg_btn_edt"
+        android:layout_marginTop="@dimen/edt_margin"/>
+
+    <TextView
+        android:id="@+id/tv_height"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/height"
+        android:layout_below="@id/et_weight"
+        android:layout_marginTop="@dimen/tv_margin"/>
+
+    <EditText
+        android:id="@+id/et_height"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_height"
+        android:layout_marginTop="@dimen/edt_margin"
+        android:background="@drawable/bg_btn_edt"
+        android:padding="@dimen/edt_padding"/>
+
+    <TextView
+        android:id="@+id/tv_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_height"
+        android:layout_marginTop="@dimen/margin_large"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/text_size_result"/>
+
+    <Button
+        android:id="@+id/btn_calculate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/calculate_bmi"
+        android:textAllCaps="false"
+        android:layout_below="@id/tv_result"
+        android:layout_marginTop="@dimen/margin_large"
+        android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>
