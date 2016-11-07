@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">ActivityDemo</string>
+    <string name="oncreate">onCreate:</string>
+    <string name="onstart">onStart:</string>
+    <string name="onrestart">onRestart:</string>
+    <string name="onresume">onResume:</string>
+    <string name="onpause">onPause:</string>
+    <string name="onstop">onStop:</string>
+    <string name="ondestroy">onDestroy:</string>
+    <string name="go_to_activity_b">Go to Activity B</string>
+</resources>

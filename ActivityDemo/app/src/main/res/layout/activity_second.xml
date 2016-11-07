@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_second"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="luunt.activitydemo.SecondActivity">
+
+    <TextView
+        android:id="@+id/tv_onCreate"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:text="@string/oncreate" />
+
+    <TextView
+        android:id="@+id/tv_num_onCreate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/tv_onCreate"
+        android:layout_marginLeft="20dp"/>
+
+    <TextView
+        android:id="@+id/tv_onStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_onCreate"
+        android:text="@string/onstart"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/tv_num_onStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/tv_onCreate"
+        android:layout_below="@id/tv_num_onCreate"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/tv_onRestart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/onrestart"
+        android:layout_below="@id/tv_onStart"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/tv_num_onRestart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/tv_onCreate"
+        android:layout_below="@id/tv_num_onStart"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/tv_onResume"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/onresume"
+        android:layout_below="@id/tv_onRestart"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/tv_num_onResume"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/tv_onCreate"
+        android:layout_below="@id/tv_num_onRestart"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/tv_onPause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/onpause"
+        android:layout_below="@id/tv_onResume"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/tv_num_onPause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/tv_onCreate"
+        android:layout_below="@id/tv_num_onResume"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/tv_onStop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_onPause"
+        android:text="@string/onstop"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/tv_num_onStop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/tv_onCreate"
+        android:layout_below="@id/tv_num_onPause"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/tv_onDestroy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ondestroy"
+        android:layout_below="@id/tv_onStop"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/tv_num_onDestroy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/tv_onCreate"
+        android:layout_below="@id/tv_num_onStop"
+        android:layout_marginTop="10dp"/>
+
+</RelativeLayout>
