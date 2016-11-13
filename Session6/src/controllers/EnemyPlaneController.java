@@ -2,6 +2,8 @@ package controllers;
 
 import models.*;
 import utils.Utils;
+import views.AnimationDrawer;
+import views.GameDrawer;
 import views.GameView;
 
 import java.awt.*;
@@ -20,10 +22,10 @@ public class EnemyPlaneController extends SingleController implements Contactabl
     private FlyBehavior flyBehavior;
     private ShootBehavior shootBehavior;
 
-    public EnemyPlaneController(GameObject gameObject, GameView gameView,
+    public EnemyPlaneController(GameObject gameObject, GameDrawer gameDrawer,
                                 FlyBehavior flyBehavior,
                                 ShootBehavior shootBehavior) {
-        super(gameObject, gameView);
+        super(gameObject, gameDrawer);
         this.flyBehavior = flyBehavior;
         this.shootBehavior = shootBehavior;
 
@@ -78,31 +80,36 @@ public class EnemyPlaneController extends SingleController implements Contactabl
     }
 
     public static EnemyPlaneController create(int x, int y, EnemyPlaneType type) {
+        String[] arrName = {"enemy_plane_yellow_1.png", "enemy_plane_yellow_2.png", "enemy_plane_yellow_3.png"};
 
-        Image image = null;
+//        Image image = null;
+
+        AnimationDrawer animationDrawer = null;
         FlyBehavior flyBehavior = null;
         ShootBehavior shootBehavior = null;
 
         if (type == EnemyPlaneType.GRAY) //Gray
         {
-            image = Utils.loadImageFromRes("plane1.png");
+//            image = Utils.loadImageFromRes("plane1.png");
+            animationDrawer = new AnimationDrawer(arrName);
             flyBehavior = new DownFlyBehavior(1);
             shootBehavior = new DownShootBehavior();
         } else if (type == EnemyPlaneType.RED) // Red
         {
-            image = Utils.loadImageFromRes("plane2.png");
+//            image = Utils.loadImageFromRes("plane2.png");
+            animationDrawer = new AnimationDrawer(Utils.loadSprite("enemy_plane_yellow.png", 3, 1, 1, 32, 32));
 //            flyBehavior = new DownRightFlyBehavior();
             shootBehavior = new FollowShootBehavior();
         }
         else if(type == EnemyPlaneType.YELLOW) {
-            image = Utils.loadImageFromRes("plane3.png");
+//            image = Utils.loadImageFromRes("plane3.png");
             flyBehavior = new DownLeftFlyBehavior();
             shootBehavior = new FollowShootBehavior();
         }
 
         return new EnemyPlaneController(
                 new EnemyPlane(x, y),
-                new GameView(image),
+                animationDrawer,
                 flyBehavior,
                 shootBehavior);
     }

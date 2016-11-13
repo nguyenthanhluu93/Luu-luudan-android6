@@ -15,6 +15,8 @@ public class ControllerManager implements BaseController {
 
     protected Vector<BaseController> baseControllers;
 
+    public static final ControllerManager explosionController = new ControllerManager();
+
     public ControllerManager() {
         this.baseControllers = new Vector<>();
     }
@@ -25,27 +27,32 @@ public class ControllerManager implements BaseController {
 
     @Override
     public void run() {
-        Iterator<BaseController> iterator = baseControllers.iterator();
-        while(iterator.hasNext()) {
-            BaseController baseController = iterator.next();
-            if (baseController instanceof SingleController) {
-                GameObject gameObject =
-                        ((SingleController) baseController).getGameObject();
-                if(!gameObject.isAlive()) {
-                    iterator.remove();
+        synchronized (baseControllers) {
+            Iterator<BaseController> iterator = baseControllers.iterator();
+            while (iterator.hasNext()) {
+                BaseController baseController = iterator.next();
+                if (baseController instanceof SingleController) {
+                    GameObject gameObject =
+                            ((SingleController) baseController).getGameObject();
+                    if (!gameObject.isAlive()) {
+                        iterator.remove();
+                    } else {
+                        baseController.run();
+                    }
                 } else {
-                    baseController.run();
+                    baseController.run(); // Manager
                 }
-            } else {
-                baseController.run(); // Manager
             }
         }
     }
 
     @Override
     public void draw(Graphics g) {
-        for(BaseController baseController : baseControllers) {
-            baseController.draw(g);
+//        for(BaseController baseController : baseControllers) {
+//            baseController.draw(g);
+//        }
+        for (int i =0; i< baseControllers.size(); i++) {
+            baseControllers.get(i).draw(g);
         }
     }
 }

@@ -3,22 +3,23 @@ import java.awt.*;
 
 import models.GameConfig;
 import models.GameObject;
+import views.GameDrawer;
 import views.GameView;
 
 /**
  * Created by apple on 10/11/16.
  */
 public class SingleController implements BaseController {
-    private GameView gameView;
+    protected GameDrawer gameDrawer;
     protected GameObject gameObject;
 
-    public SingleController(GameObject gameObject, GameView gameView) {
-        this.gameView = gameView;
+    public SingleController(GameObject gameObject, GameDrawer gameDrawer) {
+        this.gameDrawer = gameDrawer;
         this.gameObject = gameObject;
     }
 
     public void draw(Graphics g) {
-        gameView.drawImage(g, gameObject);
+        gameDrawer.drawImage(g, gameObject);
     }
 
     public void run() {

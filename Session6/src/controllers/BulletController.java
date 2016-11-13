@@ -1,6 +1,7 @@
 package controllers;
 
 import models.GameObject;
+import utils.Utils;
 import views.GameView;
 
 /**
@@ -24,6 +25,9 @@ public class BulletController extends SingleController implements Contactable {
     public void onCollide(Contactable contactable) {
         if(contactable instanceof EnemyPlaneController) {
             ((EnemyPlaneController) contactable).destroy();
+            ExplosionController explosionController = ExplosionController.create(gameObject.getX(), gameObject.getY());
+            ControllerManager.explosionController.add(explosionController);
+            Utils.playSound("resources/arrow_x.wav", false);
         }
     }
 }

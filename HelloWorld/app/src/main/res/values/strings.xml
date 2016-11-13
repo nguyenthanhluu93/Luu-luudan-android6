@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">BMICalculator</string>
+    <string name="hello_android6">Hello Android6!</string>
+    <string name="say_hello">Say Hello</string>
+</resources>

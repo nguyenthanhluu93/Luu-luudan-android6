@@ -40,6 +40,7 @@ public class GameWindow extends Frame implements Runnable {
         controllerManager.add(new EnemyPlaneControllerManager());
         controllerManager.add(giftController);
         controllerManager.add(CollisionPool.instance);
+        controllerManager.add(ControllerManager.explosionController);
 
         backBufferImage = new BufferedImage(backgroundWidth,
                 backgroundHeight, BufferedImage.TYPE_INT_ARGB);
