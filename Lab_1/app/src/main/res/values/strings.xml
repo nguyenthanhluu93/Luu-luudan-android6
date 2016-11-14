@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Lab_1</string>
+    <string name="txt_day">Thursday, July 14</string>
+    <string name="for_you">For you</string>
+    <string name="recently_played">Recently Played</string>
+    <string name="kids">Kids</string>
+    <string name="women">Women</string>
+    <string name="men">Men</string>
+    <string name="night_dress">Night dress</string>
+    <string name="add_to_cart">Add to cart</string>
+    <string name="color">Colors</string>
+    <string name="size">Sizes</string>
+    <string name="title">Available within 2-4 business days Express Delivery available</string>
+    <string name="details">Details</string>
+    <string name="details_1">- various leather applications and patches</string>
+    <string name="details_2">- Rib knit cuffs and hem</string>
+    <string name="details_3">- Contrains non-textile parts of animal origin</string>
+    <string name="details_4">- Length: medium</string>
+    <string name="choose_color_sizes"><![CDATA[Choose colors & sizes]]></string>
+</resources>
