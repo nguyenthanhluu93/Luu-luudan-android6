@@ -12,20 +12,18 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
-//    @BindView(R.id.lv_fashion_menu) ListView lvFashionMenu;
-    ListView listView;
+    @BindView(R.id.lv_fashion_menu) ListView lvFashionMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        ButterKnife.bind(this);
+        ButterKnife.bind(this);
         setupUI();
     }
 
     private void setupUI() {
-        listView = (ListView) findViewById(R.id.lv_fashion_menu);
-        listView.setAdapter(new FashionAdapter(
+        lvFashionMenu.setAdapter(new FashionAdapter(
                 this,
                 R.layout.listview_item_fashion,
                 Arrays.asList(FashionItem.ARRAY)));

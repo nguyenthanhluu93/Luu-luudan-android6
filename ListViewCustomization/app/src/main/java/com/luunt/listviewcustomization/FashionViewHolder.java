@@ -12,17 +12,14 @@ import butterknife.ButterKnife;
  */
 public class FashionViewHolder {
 
-//    @BindView(R.id.tv_fashion_title)
-//    TextView tvTitle;
-//
-//    @BindView(R.id.img_fashion_item)
-//    ImageView imgFashion;
+    @BindView(R.id.tv_fashion_title)
+    TextView tvTitle;
 
-    public TextView tvTitle;
+    @BindView(R.id.img_fashion_item)
     ImageView imgFashion;
 
     public FashionViewHolder(View rootView) {
-//        ButterKnife.bind(this, rootView);
+        ButterKnife.bind(this, rootView);
         tvTitle = (TextView) rootView.findViewById(R.id.tv_fashion_title);
         imgFashion = (ImageView) rootView.findViewById(R.id.img_fashion_item);
     }
