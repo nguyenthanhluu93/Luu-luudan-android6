@@ -38,10 +38,10 @@ public class CircleView extends View {
         super.onDraw(canvas);
         Paint p1 = new Paint(Paint.ANTI_ALIAS_FLAG);
         p1.setColor(colorAccent);
-        canvas.drawCircle(getWidth()/3, getHeight()/4, 300, p1);
+        canvas.drawCircle(200, 200, 100, p1);
 
         Paint p2 = new Paint(Paint.ANTI_ALIAS_FLAG);
         p2.setColor(colorPrimary);
-        canvas.drawCircle((2 * getWidth()) / 3, getHeight()/4, 300, p2);
+        canvas.drawCircle(300, 200, 100, p2);
     }
 }
