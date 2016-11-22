@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/img_remove"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_remove_circle_black"
+        android:layout_alignParentLeft="true"
+        android:scaleType="center"/>
+
+    <ImageView
+        android:id="@+id/img_add"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_add_circle_black"
+        android:layout_alignParentRight="true"
+        android:scaleType="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="vertical"
+        android:layout_toLeftOf="@id/img_add"
+        android:layout_toRightOf="@id/img_remove">
+
+        <luunt.lab2_turn1.CustomTextView
+            android:id="@+id/tv_number"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:textSize="24sp"
+            android:gravity="center"
+            app:number="390"/>
+
+        <luunt.lab2_turn1.CustomTextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:textSize="24sp"
+            android:gravity="center"
+            app:title="abc"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
