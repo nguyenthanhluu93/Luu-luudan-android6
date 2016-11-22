@@ -40,7 +40,7 @@ public class CustomTextView extends TextView {
 
             // 4: day time len giao dien
             if (number != -1) {
-                this.setText(String.format("%s", fromSecondToTimeString(number)));
+                this.setText(String.format("%s", number));
             }
             if (title != null) {
                 this.setText(title);
@@ -48,15 +48,4 @@ public class CustomTextView extends TextView {
         }
     }
 
-    @Override
-    public void setText(CharSequence text, BufferType type) {
-        super.setText(text, type);
-    }
-
-    String fromSecondToTimeString(int totalSeconds) {
-        int hours = totalSeconds / 3600;
-        int minutes = (totalSeconds % 3600) / 60;
-        int seconds = totalSeconds % 60;
-        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
-    }
 }
