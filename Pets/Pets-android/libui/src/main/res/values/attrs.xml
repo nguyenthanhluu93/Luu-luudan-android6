@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="tabLayoutGravity" format="enum">
+        <enum name="top" value="1" />
+        <enum name="bottom" value="2" />
+    </attr>
+    <attr name="tabLayoutBackground" format="color" />
+    <attr name="tabLayoutIndicatorColor" format="color" />
+    <attr name="tabLayoutSelectedTextColor" format="color" />
+    <attr name="tabLayoutTextColor" format="color" />
+
+    <attr name="scrollFlag">
+        <flag name="scroll" value="0x1" />
+        <flag name="exitUntilCollapsed" value="0x2" />
+        <flag name="enterAlways" value="0x4" />
+        <flag name="enterAlwaysCollapsed" value="0x8" />
+        <flag name="snap" value="0x10" />
+    </attr>
+
+    <attr name="tabLayoutIndicatorHeight" format="dimension" />
+
+    <attr name="progressBarTextSize" format="dimension" />
+    <!-- tab design Layout -->
+    <declare-styleable name="tab_design">
+        <attr name="tabLayoutGravity" />
+        <attr name="tabLayoutBackground" />
+        <attr name="tabLayoutIndicatorColor" />
+        <attr name="tabLayoutSelectedTextColor" />
+        <attr name="tabLayoutTextColor" />
+    </declare-styleable>
+
+    <!-- tab coordinator Layout -->
+    <declare-styleable name="tab_coordinator">
+        <attr name="tabLayoutGravity" />
+        <attr name="tabLayoutBackground" />
+        <attr name="tabLayoutIndicatorColor" />
+        <attr name="tabLayoutSelectedTextColor" />
+        <attr name="tabLayoutTextColor" />
+        <attr name="scrollFlag" />
+        <attr name="tabLayoutIndicatorHeight" />
+    </declare-styleable>
+
+    <declare-styleable name="text_progress_bar">
+        <attr name="progressBarTextSize" />
+    </declare-styleable>
+
+</resources>

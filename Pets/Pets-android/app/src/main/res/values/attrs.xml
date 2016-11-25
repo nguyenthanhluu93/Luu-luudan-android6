@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="tab_theme" format="reference" />
+    <!-- SohaButton -->
+    <declare-styleable name="tab_layout">
+        <attr name="tab_theme" />
+    </declare-styleable>
+
+</resources>

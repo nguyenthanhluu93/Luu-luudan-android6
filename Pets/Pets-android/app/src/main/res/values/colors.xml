@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorDeepPurple">#9575CD</color>
+    <color name="colorPrimary">#673AB7</color>
+    <color name="colorPrimaryDark">#4527A0</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="white">#ffffff</color>
+    <color name="background_app">#e9ebee</color>
+    <color name="color_indicator">@color/white</color>
+    <color name="default_app">#3F51B5</color>
+
+    <color name="color_header_dialog">#FF4081</color>
+    <color name="textColor">#dd000000</color>
+    <color name="textColorSecondary">#89000000</color>
+    <color name="secondary_text_hint">#80ffffff</color>
+    <color name="wallet_hint_foreground_holo_dark">#ff808080</color>
+    <color name="transparent">#00000000</color>
+    <color name="line_color">#ffb7b7b7</color>
+
+</resources>

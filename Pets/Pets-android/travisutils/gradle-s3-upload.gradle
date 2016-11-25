@@ -1,0 +1,26 @@
+def publishAllTaskLocal = project.tasks.create("publishAllApksToLocalFolder")
+android.applicationVariants.all { variant ->
+    def buildDir = "../build"
+    def task = project.tasks.create("publish${variant.name}ApkToLocalFolder", Copy)
+    task.from(variant.outputs[0].outputFile) {
+        rename 'app-release', 'zap_courier_release'
+    }
+    task.into(buildDir)
+
+    task.dependsOn variant.assemble
+    publishAllTaskLocal.dependsOn task
+}
+def publishAllTaskLocalWithVersionCode = project.tasks.
+        create("publishAllApksToLocalFolderWithVersionCode")
+android.applicationVariants.all { variant ->
+    def buildDir = "../build"
+    def targetName = 'zap_courier_release_' + variant.versionCode
+    def task = project.tasks.create("publish${variant.name}ApkToLocalFolderWithVersionCode", Copy)
+    task.from(variant.outputs[0].outputFile) {
+        rename 'app-release', targetName
+    }
+    task.into(buildDir)
+
+    task.dependsOn variant.assemble
+    publishAllTaskLocalWithVersionCode.dependsOn task
+}
