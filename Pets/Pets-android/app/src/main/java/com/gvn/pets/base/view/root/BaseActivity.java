@@ -2,7 +2,6 @@ package com.gvn.pets.base.view.root;
 
 import android.app.Fragment;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
@@ -13,8 +12,6 @@ import com.gvn.pets.app.BaseView;
 import com.gvn.pets.utils.LogUtil;
 
 /**
- * Hàm "bindView(@IdRes int id)" sẽ thay thế cho phương thức  "findViewById(id)"
- *
  * Created by namIT on 11/18/2016.
  */
 
@@ -86,26 +83,12 @@ public abstract class BaseActivity extends SupportActivity implements BaseView {
     public void onBackPressedSupport() {
         super.onBackPressedSupport();
         LogUtil.d("BaseActivity", "onBackPressedSupport");
-        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
-            pop();
-        } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                finishAfterTransition();
-            }
-        }
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         LogUtil.d("BaseActivity", "onBackPressed");
-    }
-
-    //CallBack
-    @Override
-    public void showError(String msg) {
-        //TODO callback
-        LogUtil.i("namIT", msg);
     }
 
     /**
@@ -116,5 +99,12 @@ public abstract class BaseActivity extends SupportActivity implements BaseView {
      */
     protected <T extends View> T bindView(@IdRes int id) {
         return (T) findViewById(id);
+    }
+
+    //CallBack
+    @Override
+    public void showError(String msg) {
+        //TODO callback
+        LogUtil.i("namIT", msg);
     }
 }
