@@ -10,6 +10,18 @@ import java.io.File;
 
 public class Constants {
 
+    // Default finish register flag
+    public static final int FINISH_REGISTER_YES = 1;
+    public static final int FINISH_REGISTER_NO = 0;
+
+    // Default dialog showed
+    public static final boolean IS_SHOWED_FLAG = false;
+    public static final boolean IS_NOT_SHOWED_FLAG = true;
+
+    // Settings
+    public static final int DISTANCE_UNIT_MILE = 0;
+    public static final int DISTANCE_UNIT_KILOMETER = 1;
+
     //================= PATH ====================
     public static final String PATH_DATA = AppController.getInstance().getCacheDir().getAbsolutePath() + File.separator + "data";
 

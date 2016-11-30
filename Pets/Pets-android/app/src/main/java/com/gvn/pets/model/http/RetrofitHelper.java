@@ -3,7 +3,7 @@ package com.gvn.pets.model.http;
 import com.gvn.pets.BuildConfig;
 import com.gvn.pets.app.Constants;
 import com.gvn.pets.model.http.service.RequestService;
-import com.gvn.pets.utils.LogUtil;
+import com.gvn.pets.utils.LogUtils;
 import com.gvn.pets.utils.SystemUtils;
 
 import java.io.File;
@@ -31,6 +31,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class RetrofitHelper {
+    private static String TAG = RetrofitHelper.class.getSimpleName();
     private static OkHttpClient okHttpClient = null;
     private static final Charset UTF8 = Charset.forName("UTF-8");
 
@@ -110,9 +111,9 @@ public class RetrofitHelper {
 
             long t1 = System.nanoTime();
             if (null == request.body()) {
-                LogUtil.d("request", "request=" + request.url());
+                LogUtils.d(TAG, "request=" + request.url());
             } else {
-                LogUtil.d("request", "request=" + request.body().toString());
+                LogUtils.d(TAG, "request=" + request.body().toString());
             }
             Response response = chain.proceed(request);
             ResponseBody responseBody = response.body();
@@ -129,11 +130,11 @@ public class RetrofitHelper {
             }
 
             if (contentLength != 0) {
-                LogUtil.d("received", "SECONDS: " + TimeUnit.SECONDS.convert((t2 - t1), TimeUnit.NANOSECONDS) + "\nreceived=" + buffer.clone().readString(charset));
+                LogUtils.d(TAG, "SECONDS: " + TimeUnit.SECONDS.convert((t2 - t1), TimeUnit.NANOSECONDS) + "\nreceived=" + buffer.clone().readString(charset));
             } else {
-                LogUtil.d("received", response.message());
+                LogUtils.d(TAG, response.message());
             }
-            LogUtil.d("END HTTP", "(" + buffer.size() + "-byte body)");
+            LogUtils.d(TAG, "END HTTP" + "(" + buffer.size() + "-byte body)");
             final String responseString = new String(response.body().bytes());
             return response.newBuilder()
                     .body(ResponseBody.create(response.body().contentType(), responseString))

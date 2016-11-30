@@ -1,94 +1,200 @@
 package com.gvn.pets.base.view.root;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 
+import com.gvn.pets.R;
 import com.gvn.pets.app.AppController;
 import com.gvn.pets.app.BaseView;
-import com.gvn.pets.utils.LogUtil;
+import com.gvn.pets.base.presenter.BasePresenter;
+import com.gvn.pets.inject.component.ActivityComponent;
+import com.gvn.pets.inject.component.DaggerActivityComponent;
+import com.gvn.pets.inject.module.ActivityModule;
+import com.gvn.pets.model.http.api.LoginByEmailRequest;
+import com.gvn.pets.model.http.api.LoginByFacebookRequest;
+import com.gvn.pets.model.http.api.LoginRequest;
+import com.gvn.pets.ui.activity.SignUpActivity;
+import com.gvn.pets.ui.activity.SplashActivity;
+import com.gvn.pets.utils.LogUtils;
+import com.gvn.pets.utils.SystemUtils;
+import com.gvn.pets.utils.TimeUtils;
+import com.gvn.pets.utils.prefers.AppPreference;
+import com.gvn.pets.utils.prefers.UserPreference;
+
+import javax.inject.Inject;
 
 /**
  * Created by namIT on 11/18/2016.
  */
 
-public abstract class BaseActivity extends SupportActivity implements BaseView {
+public abstract class BaseActivity<T extends BasePresenter> extends SupportActivity implements BaseView {
+
+    private static String TAG = BaseActivity.class.getSimpleName();
+    @Inject
+    protected T presenter;
+    protected Activity context;
+
+    protected ActivityComponent getActivityComponent() {
+        return DaggerActivityComponent.builder()
+                .appComponent(AppController.getAppComponent())
+                .activityModule(getActivityModule())
+                .build();
+    }
+
+    protected ActivityModule getActivityModule() {
+        return new ActivityModule(this);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            getWindow().getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+            );
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getWindow().setStatusBarColor(Color.TRANSPARENT);
+                getWindow().setNavigationBarColor(getResources().getColor(R.color.navigation_bar_color));
+            }
+        }
         super.onCreate(savedInstanceState);
-        LogUtil.d("BaseActivity", "onCreate");
+        setContentView(getLayoutId());
+        LogUtils.d(TAG, "onCreate");
+        context = this;
+        initInject();
+        if (presenter != null)
+            presenter.attachView(this);
         AppController.getInstance().addActivity(this);
+        onViewReady();
     }
+
 
     @Override
     protected void onStart() {
         super.onStart();
-        LogUtil.d("BaseActivity", "onStart");
+        LogUtils.d(TAG, "onStart");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        LogUtil.d("BaseActivity", "onResume");
+        LogUtils.d(TAG, "onResume");
     }
 
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        LogUtil.d("BaseActivity", "onPostResume");
+        LogUtils.d(TAG, "onPostResume");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        LogUtil.d("BaseActivity", "onPause");
+        LogUtils.d(TAG, "onPause");
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        LogUtil.d("BaseActivity", "onRestart");
+        LogUtils.d(TAG, "onRestart");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        LogUtil.d("BaseActivity", "onStop");
+        LogUtils.d(TAG, "onStop");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        LogUtil.d("BaseActivity", "onDestroy");
+        LogUtils.d(TAG, "onDestroy");
+        if (presenter != null) presenter.detachView();
         AppController.getInstance().removeActivity(this);
     }
 
     @Override
     public void onAttachFragment(Fragment fragment) {
         super.onAttachFragment(fragment);
-        LogUtil.d("BaseActivity", "onAttachFragment: " + fragment.getClass().getSimpleName());
+        LogUtils.d(TAG, "onAttachFragment: " + fragment.getClass().getSimpleName());
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        LogUtil.d("BaseActivity", "resultCode: " + resultCode + "\n" + "requestCode: " + requestCode);
+        LogUtils.d(TAG, "resultCode: " + resultCode + "\n" + "requestCode: " + requestCode);
     }
 
     @Override
     public void onBackPressedSupport() {
         super.onBackPressedSupport();
-        LogUtil.d("BaseActivity", "onBackPressedSupport");
+        LogUtils.d(TAG, "onBackPressedSupport");
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        LogUtil.d("BaseActivity", "onBackPressed");
+        LogUtils.d(TAG, "onBackPressed");
+    }
+
+    public void startAuthenScreen() {
+        LogUtils.d(TAG, "start Authen Screen");
+        if (this instanceof SignUpActivity)
+            return;
+            startActivity(new Intent(this, SignUpActivity.class));
+            finish();
+    }
+
+    public void startMainScreen() {
+        LogUtils.d(TAG, "start Main Screen");
+//        if (this instanceof MainActivity)
+//            return;
+//        // Send active action to ApptizerF
+//        UserPreference userPreferences = UserPreference.getInstance();
+//            startActivity(new Intent(this, MainActivity.class));
+//            finish();
+    }
+
+    public LoginRequest autoLogin() {
+        UserPreference userPreferences = UserPreference.getInstance();
+
+        // Authentication data
+        String email = userPreferences.getEmail();
+        String facebookId = userPreferences.getFacebookId();
+        String pass = userPreferences.getPassword();
+
+        // Get basic login data
+        String device_id = SystemUtils.getDeviceId();
+        String notify_token = AppPreference.getInstance().getGCMResitrationId();
+        String login_time = TimeUtils.getLoginTime();
+        String appVersion = SystemUtils.getAppVersionName(this);
+        String device_name = SystemUtils.getDeviceName();
+        String os_version = SystemUtils.getAndroidOSVersion();
+        String gps_adid = AppPreference.getInstance().getGPSADID();
+
+        LoginRequest loginRequest = null;
+
+        if (!TextUtils.isEmpty(email)) {
+            loginRequest = new LoginByEmailRequest(email, pass, device_id,
+                    notify_token, login_time, appVersion, device_name, os_version, gps_adid);
+        } else if (!TextUtils.isEmpty(facebookId)) {
+            loginRequest = new LoginByFacebookRequest(facebookId, device_id,
+                    notify_token, login_time, appVersion, device_name, os_version, gps_adid);
+        } else {
+            if (this instanceof SplashActivity)
+                startAuthenScreen();
+        }
+
+        if (loginRequest != null)
+            return loginRequest;
+        return null;
     }
 
     /**
@@ -101,10 +207,27 @@ public abstract class BaseActivity extends SupportActivity implements BaseView {
         return (T) findViewById(id);
     }
 
+    /**
+     * @return return LayoutId của fragment
+     */
+    protected abstract int getLayoutId();
+
+    /**
+     * Ở đây sẽ gọi phương thức này để đăng ký Callback
+     * getActivityComponent().inject(this)\
+     * và khởi tạo các View ở đây
+     */
+    protected abstract void initInject();
+
+    /**
+     * View Cài đặt thành công sẽ được sử lý ở phương thức này
+     */
+    protected abstract void onViewReady();
+
     //CallBack
     @Override
     public void showError(String msg) {
         //TODO callback
-        LogUtil.i("namIT", msg);
+        LogUtils.i(TAG, msg);
     }
 }

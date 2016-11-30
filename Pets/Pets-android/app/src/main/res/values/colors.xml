@@ -1,13 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorDeepPurple">#9575CD</color>
-    <color name="colorPrimary">#673AB7</color>
-    <color name="colorPrimaryDark">#4527A0</color>
+    <!--transparent-->
+    <!--100% — FF-->
+    <!--95% — F2-->
+    <!--90% — E6-->
+    <!--85% — D9-->
+    <!--80% — CC-->
+    <!--75% — BF-->
+    <!--70% — B3-->
+    <!--65% — A6-->
+    <!--60% — 99-->
+    <!--55% — 8C-->
+    <!--50% — 80-->
+    <!--45% — 73-->
+    <!--40% — 66-->
+    <!--35% — 59-->
+    <!--30% — 4D-->
+    <!--25% — 40-->
+    <!--20% — 33-->
+    <!--15% — 26-->
+    <!--10% — 1A-->
+    <!--5% — 0D-->
+    <!--0% — 00-->
+    <color name="colorDeepPurple">#11b7b7</color>
+    <color name="colorPrimary">#11b7b7</color>
+    <color name="colorPrimaryDark">#11b7b7</color>
     <color name="colorAccent">#FF4081</color>
     <color name="white">#ffffff</color>
     <color name="background_app">#e9ebee</color>
     <color name="color_indicator">@color/white</color>
-    <color name="default_app">#3F51B5</color>
+    <color name="default_app">#11b7b7</color>
+    <color name="navigation_bar_color">#000000</color>
 
     <color name="color_header_dialog">#FF4081</color>
     <color name="textColor">#dd000000</color>
@@ -15,6 +38,17 @@
     <color name="secondary_text_hint">#80ffffff</color>
     <color name="wallet_hint_foreground_holo_dark">#ff808080</color>
     <color name="transparent">#00000000</color>
+    <color name="coatings">#73525858</color>
     <color name="line_color">#ffb7b7b7</color>
+    <color name="white_40">#66ffffff</color>
 
+    <color name="bg_btn_transparent">#00ffffff</color>
+    <color name="bg_btn_sign_up_fb_transparent">#B3384972</color>
+    <color name="bg_btn_signup_normal">#393F3F</color>
+    <color name="bg_btn_signup_press">#383843</color>
+    <color name="blue">#11B7B7</color>
+    <color name="blue_press">#118D96</color>
+
+    <color name="default_text_color">#C0E0DF</color>
+    <color name="color_edittext_background">#6682857B</color>
 </resources>

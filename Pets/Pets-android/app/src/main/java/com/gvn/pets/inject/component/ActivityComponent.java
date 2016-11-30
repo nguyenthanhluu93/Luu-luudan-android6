@@ -5,6 +5,8 @@ import android.app.Activity;
 import com.gvn.pets.inject.ActivityScope;
 import com.gvn.pets.inject.module.ActivityModule;
 import com.gvn.pets.ui.activity.MainActivity;
+import com.gvn.pets.ui.activity.SignUpActivity;
+import com.gvn.pets.ui.activity.SplashActivity;
 
 import dagger.Component;
 
@@ -20,4 +22,10 @@ public interface ActivityComponent {
 
     // inject Activity
     void inject(MainActivity mainActivity);
+
+    // inject Activity
+    void inject(SplashActivity splashActivity);
+
+    // inject Activity
+    void inject(SignUpActivity signUpActivity);
 }

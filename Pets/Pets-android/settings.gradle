@@ -1,1 +1,4 @@
-include ':app', ':libui'
+include ':app', ':libui', ':Indicator_library'
+project(':app').projectDir = new File('app')
+project(':libui').projectDir = new File('third party/libui')
+project(':Indicator_library').projectDir = new File('third party/Indicator_library')

@@ -11,7 +11,7 @@ import android.view.WindowManager;
 import com.gvn.pets.inject.component.AppComponent;
 import com.gvn.pets.inject.component.DaggerAppComponent;
 import com.gvn.pets.inject.module.AppModule;
-import com.gvn.pets.utils.LogUtil;
+import com.gvn.pets.utils.LogUtils;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -44,11 +44,6 @@ public class AppController extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
-        /*if (BuildConfig.reportCrashlytics) {
-            Fabric.with(this, new Crashlytics());
-        }*/
-
         instance = this;
         getScreenSize();
     }
@@ -92,7 +87,7 @@ public class AppController extends Application {
             SCREEN_HEIGHT = SCREEN_WIDTH;
             SCREEN_WIDTH = t;
         }
-        LogUtil.d("App", "SCREEN_WIDTH = " + SCREEN_WIDTH + "\nSCREEN_HEIGHT=" + SCREEN_HEIGHT + "\nDIMEN_RATE=" + DIMEN_RATE + "\nDIMEN_DPI=" + DIMEN_DPI);
+        LogUtils.d("App", "SCREEN_WIDTH = " + SCREEN_WIDTH + "\nSCREEN_HEIGHT=" + SCREEN_HEIGHT + "\nDIMEN_RATE=" + DIMEN_RATE + "\nDIMEN_DPI=" + DIMEN_DPI);
     }
 
     public static AppComponent getAppComponent(){

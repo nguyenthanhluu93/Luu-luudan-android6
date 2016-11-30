@@ -10,14 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.gvn.pets.R;
 import com.gvn.pets.app.AppController;
 import com.gvn.pets.app.BaseView;
 import com.gvn.pets.base.presenter.BasePresenter;
 import com.gvn.pets.inject.component.DaggerFragmentComponent;
 import com.gvn.pets.inject.component.FragmentComponent;
 import com.gvn.pets.inject.module.FragmentModule;
-import com.gvn.pets.utils.LogUtil;
+import com.gvn.pets.utils.LogUtils;
 
 import javax.inject.Inject;
 
@@ -37,16 +36,16 @@ import javax.inject.Inject;
 public abstract class BaseFragment<T extends BasePresenter> extends SupportFragment implements BaseView {
 
     @Inject
-    protected T mPresenter;
+    protected T presenter;
     protected View rootView;
     protected boolean isInited = false;
-    protected Activity mActivity;
-    protected Context mContext;
+    protected Activity activity;
+    protected Context context;
 
     @Override
     public void onAttach(Context context) {
-        mActivity = (Activity) context;
-        mContext = context;
+        this.activity = (Activity) context;
+        this.context = context;
         super.onAttach(context);
     }
 
@@ -69,8 +68,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends SupportFragm
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(getLayoutId(), null);
-        inflater.inflate(R.layout.fragment_test, container, false);
+        rootView = inflater.inflate(getLayoutId(),container, false);
         initInject();
         return rootView;
     }
@@ -80,7 +78,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends SupportFragm
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //Đăng ký callBack
-        mPresenter.attachView(this);
+        presenter.attachView(this);
         if (savedInstanceState == null) {
             if (!isHidden()) {
                 isInited = true;
@@ -112,13 +110,13 @@ public abstract class BaseFragment<T extends BasePresenter> extends SupportFragm
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mPresenter != null) mPresenter.detachView();
+        if (presenter != null) presenter.detachView();
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        LogUtil.d("BaseFragment", "resultCode: " + resultCode + "\n" + "requestCode: " + requestCode);
+        LogUtils.d("BaseFragment", "resultCode: " + resultCode + "\n" + "requestCode: " + requestCode);
     }
 
     /**
@@ -132,16 +130,15 @@ public abstract class BaseFragment<T extends BasePresenter> extends SupportFragm
     }
 
     /**
+     * @return return LayoutId của fragment
+     */
+    protected abstract int getLayoutId();
+    /**
      * Ở đây sẽ gọi phương thức này để đăng ký Callback
      * getFragmentComponent().inject(this)\
      * và khởi tạo các View ở đây
      */
     protected abstract void initInject();
-
-    /**
-     * @return return LayoutId của fragment
-     */
-    protected abstract int getLayoutId();
 
     /**
      * View Cài đặt thành công sẽ được sử lý ở phương thức này
@@ -153,6 +150,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends SupportFragm
     @Override
     public void showError(String msg) {
         //TODO callback
-        LogUtil.i("namIT", msg);
+        LogUtils.i("namIT", msg);
     }
 }

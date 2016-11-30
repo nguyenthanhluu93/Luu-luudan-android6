@@ -16,7 +16,6 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
 
 
-
     <application
         android:name="com.gvn.pets.app.AppController"
         android:allowBackup="true"
@@ -24,17 +23,30 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.gvn.pets.ui.activity.MainActivity">
+
+        <activity
+            android:name="com.gvn.pets.ui.activity.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/gvnSplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.activity.MainActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.activity.SignUpActivity"
+            android:screenOrientation="portrait" />
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="da0e60b172173601ef953b761f99caa15d6dce16" />
     </application>
+
 
     <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

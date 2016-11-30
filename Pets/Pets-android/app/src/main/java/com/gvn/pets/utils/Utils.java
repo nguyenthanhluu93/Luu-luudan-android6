@@ -3,9 +3,11 @@ package com.gvn.pets.utils;
 /**
  * Created by DucHM on 28/12/2015.
  */
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,9 +20,13 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+
+import com.gvn.pets.model.http.api.GetUserStatusRequest;
+import com.gvn.pets.utils.prefers.UserPreference;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
@@ -176,63 +182,51 @@ public class Utils {
         return dumBundle.toString();
     }
 
-    /*public static BitmapDrawable writeTextOnDrawable(Context mContext, int drawableId, String text, int textColor, int textSize) {
-
-        Bitmap bm = BitmapFactory.decodeResource(mContext.getResources(), drawableId).copy(Bitmap.Config.ARGB_8888, true);
-
-        Paint paint = new Paint();
-        paint.setStyle(Paint.Style.FILL);
-        paint.setColor(textColor);
-        paint.setTextSize(textSize);
-
-        Canvas canvas = new Canvas(bm);
-        canvas.drawText(text, 0, bm.getHeight()/2, paint);
-
-        return new BitmapDrawable(bm);
+    public static String getAppVersionName(Context context) {
+        String packageName = context.getPackageName();
+        PackageInfo packageInfo = null;
+        try {
+            packageInfo = context.getPackageManager().getPackageInfo(
+                    packageName, 0);
+        } catch (Exception e) {
+            LogUtils.e(TAG, String.valueOf(e.getMessage()));
+        }
+        String appVersion = "";
+        if (packageInfo != null && packageInfo.versionName != null) {
+            String version = packageInfo.versionName;
+            if (version.contains(" ")) {
+                appVersion = packageInfo.versionName.substring(0,
+                        packageInfo.versionName.indexOf(" "));
+            } else {
+                appVersion = version;
+            }
+        }
+        return appVersion;
     }
 
-    public static Bitmap writeTextOnBitmap(Context mContext, int drawableId, String text, int textColor, int textSize) {
-
-        try {
-            Bitmap bm = BitmapFactory.decodeResource(mContext.getResources(), drawableId).copy(Bitmap.Config.ARGB_8888, true);
-
-            Paint paint = new Paint();
-            paint.setStyle(Paint.Style.FILL);
-            paint.setColor(textColor);
-            paint.setTextSize(textSize);
-
-            Canvas canvas = new Canvas(bm);
-            canvas.drawText(text, 0, bm.getHeight()/2, paint);
-            Log.e("Utils", "---->go to here...text=" + text);
-            return new BitmapDrawable(bm).getBitmap();
-        } catch(Exception ex) {
-
+    public static int isNeededGetUserStatus() {
+        UserPreference prefers = UserPreference.getInstance();
+        LogUtils.d("STATUS ", TAG + "isNeededGetUserStatus : " + prefers.getRegEmail());
+        if (!TextUtils.isEmpty(prefers.getFacebookId()) && prefers.isLogout()) {
+            return GetUserStatusRequest.TYPE_FACEBOOK;
+        } else if (!TextUtils.isEmpty(prefers.getRegEmail()) && prefers.isLogout()) {
+            return GetUserStatusRequest.TYPE_EMAIL;
+        } else {
+            return GetUserStatusRequest.TYPE_NONE;
         }
-        Log.e("Utils", "---->NULL pa no roai...");
-        return null;
-    }*/
+    }
 
     public static synchronized Bitmap createBitmapFromView(View parentView, View view) {
         if (view == null) return null;
         try {
             view.setDrawingCacheEnabled(true);
-            // this is the important code
-            // Without it the view will have a dimension of 0,0 and the bitmap will be null
-
-        /*view.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
-                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));*/
-
             Log.e("Utils", "" + (view == null ? " IS NULL" : " NOT NULL"));
             view.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-
-            //int expandSpec = View.MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2, View.MeasureSpec.AT_MOST);
-            //view.measure(parentView.getWidth(), parentView.getHeight());
-
             view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
 
             view.buildDrawingCache(true);
             Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache());
-            view.setDrawingCacheEnabled(false); // clear drawing cache
+            view.setDrawingCacheEnabled(false);
 
             return bitmap;
         } catch(Exception ex) {
@@ -245,19 +239,13 @@ public class Utils {
         if (view == null) return null;
         try {
             view.setDrawingCacheEnabled(true);
-            // this is the important code
-            // Without it the view will have a dimension of 0,0 and the bitmap will be null
-
-        /*view.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
-                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));*/
             view.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
 
             view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
 
             view.buildDrawingCache(true);
             Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache());
-            view.setDrawingCacheEnabled(false); // clear drawing cache
-
+            view.setDrawingCacheEnabled(false);
             return bitmap;
         } catch(Exception ex) {
             ex.printStackTrace();

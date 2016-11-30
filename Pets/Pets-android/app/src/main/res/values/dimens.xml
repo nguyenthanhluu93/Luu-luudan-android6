@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="stroke_width">1dp</dimen>
+    <dimen name="radius_button">@dimen/spacing_1_8dp</dimen>
+    <dimen name="button_width_signup">146dp</dimen>
+
     <dimen name="spacing_0_4dp">4.0dip</dimen>
     <dimen name="spacing_1_6dp">6.0dip</dimen>
     <dimen name="spacing_1_8dp">8.0dip</dimen>
@@ -22,4 +26,12 @@
     <dimen name="text_7_28sp">28.0sp</dimen>
     <dimen name="text_8_32sp">32.0sp</dimen>
     <dimen name="text_9_36sp">36.0sp</dimen>
+
+    <dimen name="space_30">30dp</dimen>
+    <dimen name="space_40">40dp</dimen>
+    <dimen name="space_10">10dp</dimen>
+    <dimen name="space_20">20dp</dimen>
+    <dimen name="space_25">25dp</dimen>
+    <dimen name="space_120">120dp</dimen>
+    <dimen name="space_50">50dp</dimen>
 </resources>

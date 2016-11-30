@@ -1,13 +1,14 @@
 package com.gvn.pets.base.view.root;
 
 import com.gvn.pets.base.model.ServerResponse;
+import com.gvn.pets.base.presenter.BasePresenter;
 import com.gvn.pets.model.http.RetrofitCallback;
 
 /**
  * Created by namIT on 11/25/2016.
  */
 
-public abstract class BaseActivityDefaultCallBack extends BaseActivity implements RetrofitCallback.DefaultViewCallBack {
+public abstract class BaseActivityDefaultCallBack<T extends BasePresenter> extends BaseActivity<T> implements RetrofitCallback.DefaultViewCallBack {
 
     @Override
     public void showError(int code) {

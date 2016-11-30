@@ -6,4 +6,20 @@
 
     <string name="today">Today</string>
     <string name="yesterday">Yesterday</string>
+    <string name="common_kilometer_abbreviation">km</string>
+    <string name="common_mile_abbreviation">ﾏｲﾙ</string>
+
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="keep_me_logged_in">Keep me logged in</string>
+    <string name="log_in">Log in</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="sign_up">Sign up</string>
+
+    <string name="introduction_1">Capture the macthless\n
+              moments</string>
+    <string name="introduction_2">Discover, Meet ,\n
+                  join us</string>
+    <string name="introduction_3">Share the cutest\n
+          photos</string>
 </resources>

@@ -9,9 +9,30 @@
         <item name="android:textColorPrimary">@color/textColor</item>
         <item name="android:textColorSecondary">@color/textColorSecondary</item>
         <item name="android:textColorHint">@color/secondary_text_hint</item>
+        <item name="actionMenuTextColor">@color/textColor</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
-        <!--<item name="android:windowBackground">@color/colorPrimaryDark</item>-->
-        <!--<item name="buttonStyle">@style/buttonStyle</item>-->
+        <item name="android:windowBackground">@color/colorPrimary</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="colorControlNormal">@android:color/white</item>
+
     </style>
+
+    <style name="gvnSplash" parent="AppTheme">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@color/colorPrimary</item>
+    </style>
+
+    <style name="main" parent="AppTheme">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@color/background_app</item>
+    </style>
+
+    <style name="check_box_standard">
+        <item name="android:layout_width">25dp</item>
+        <item name="android:layout_height">25dp</item>
+        <item name="android:paddingTop">10dip</item>
+        <item name="android:paddingBottom">10dip</item>
+    </style>
+
 </resources>

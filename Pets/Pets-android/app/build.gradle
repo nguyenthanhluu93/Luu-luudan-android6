@@ -220,9 +220,10 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-//    compile 'junit:junit:4.12'
+    //    compile 'junit:junit:4.12'
     //Lib
     compile project(':libui')
+    compile project(':Indicator_library')
     //di
     compile 'com.google.dagger:dagger:2.0.2'
     compile 'com.google.dagger:dagger-compiler:2.0.2'
@@ -248,6 +249,8 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics-ndk:1.1.2@aar') {
         transitive = true;
     }
+    //Images
+    compile 'com.github.bumptech.glide:glide:3.6.0'
 }
 crashlytics {
     enableNdk true

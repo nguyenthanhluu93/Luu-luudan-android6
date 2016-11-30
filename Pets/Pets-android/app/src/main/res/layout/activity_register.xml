@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_signup_screen"
+    android:orientation="vertical">
+
+    <com.gvn.pets.widget.CircleImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_weight="1"
+        android:src="@drawable/signup_avatar"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="center"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_30"
+        android:layout_marginRight="@dimen/space_30">
+
+        <ImageView
+            android:id="@+id/img_username"
+            android:layout_width="@dimen/space_40"
+            android:layout_height="@dimen/space_40"
+            android:background="@drawable/ic_log_in_user_name" />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/activity_register_edt_username"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_40"
+            android:hint="@string/username"
+            android:textColorHint="@color/default_text_color"
+            android:textColor="@color/default_text_color"
+            android:background="@color/color_edittext_background"
+            android:layout_toRightOf="@id/img_username"
+            android:paddingLeft="@dimen/space_10"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_30"
+        android:layout_marginRight="@dimen/space_30"
+        android:layout_marginTop="@dimen/space_20">
+
+        <ImageView
+            android:id="@+id/img_email"
+            android:layout_width="@dimen/space_40"
+            android:layout_height="@dimen/space_40"
+            android:background="@drawable/ic_sign_up_email" />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/activity_register_edt_email"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_40"
+            android:hint="Enter your email address here"
+            android:textColorHint="@color/default_text_color"
+            android:textColor="@color/default_text_color"
+            android:background="@color/color_edittext_background"
+            android:layout_toRightOf="@id/img_email"
+            android:paddingLeft="@dimen/space_10"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_30"
+        android:layout_marginRight="@dimen/space_30"
+        android:layout_marginTop="@dimen/space_20">
+
+        <ImageView
+            android:id="@+id/img_pass"
+            android:layout_width="@dimen/space_40"
+            android:layout_height="@dimen/space_40"
+            android:background="@drawable/ic_log_in_pass" />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/activity_register_edt_pass"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_40"
+            android:hint="@string/password"
+            android:textColorHint="@color/default_text_color"
+            android:textColor="@color/default_text_color"
+            android:background="@color/color_edittext_background"
+            android:layout_toRightOf="@id/img_pass"
+            android:paddingLeft="@dimen/space_10"/>
+
+    </RelativeLayout>
+
+    <com.gvn.pets.widget.CustomButtonBlack
+        android:id="@+id/activity_register_btn_signup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_up"
+        android:background="@color/bg_btn_signup_normal"
+        android:textAllCaps="false"
+        android:textColor="@color/default_text_color"
+        android:layout_marginTop="@dimen/space_20"
+        android:layout_marginLeft="@dimen/space_30"
+        android:layout_marginRight="@dimen/space_30"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/activity_register_btn_cancel"
+        android:layout_width="@dimen/space_120"
+        android:layout_height="@dimen/space_50"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/ic_cancel"
+        android:text="Cancel"
+        android:textAllCaps="false"
+        android:textColor="@color/default_text_color"
+        android:layout_gravity="center"/>
+
+</LinearLayout>

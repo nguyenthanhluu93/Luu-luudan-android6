@@ -9,14 +9,14 @@ import android.view.ViewGroup;
 import com.gvn.pets.R;
 import com.gvn.pets.base.view.adapter.BaseAdapter;
 import com.gvn.pets.base.view.adapter.BaseAdapterViewHolder;
-import com.gvn.pets.model.bean.TestBean;
+import com.gvn.pets.model.bean.MeetPeopleBean;
 import com.gvn.pets.ui.adapter.callback.TestAdapterListener;
 
 /**
  * Created by namIT on 11/18/2016.
  */
 
-public class TestAdapter extends BaseAdapter<TestAdapter.ViewHolder, TestBean> {
+public class TestAdapter extends BaseAdapter<TestAdapter.ViewHolder, MeetPeopleBean> {
 
     public TestAdapter(Context context, TestAdapterListener listener) {
         super(context, listener);
