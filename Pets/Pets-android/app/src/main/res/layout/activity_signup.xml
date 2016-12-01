@@ -21,7 +21,8 @@
         android:background="@android:color/transparent"
         android:padding="@dimen/spacing_1_6dp"
         app:fillColor="@color/color_indicator"
-        app:pageColor="@color/secondary_text_hint" />
+        app:pageColor="@color/transparent"
+        app:strokeColor="@color/color_indicator" />
 
     <View
         android:layout_width="match_parent"
@@ -45,7 +46,6 @@
             android:id="@+id/activity_signup_logo"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/spacing_6_default_48dp"
-            android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/spacing_6_default_48dp"
             android:src="@drawable/logo" />
 
@@ -56,8 +56,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/spacing_3_24dp"
             android:layout_marginLeft="@dimen/spacing_3_24dp"
-            android:layout_marginRight="@dimen/spacing_3_24dp"
-            android:gravity="center_horizontal">
+            android:layout_marginRight="@dimen/spacing_3_24dp">
 
             <com.gvn.pets.widget.FontTextView
                 android:id="@+id/activity_signup_content_text"
@@ -69,36 +68,46 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/spacing_3_24dp" />
 
-            <com.gvn.pets.widget.FontButton
-                android:id="@+id/activity_signup_signup"
-                android:layout_width="@dimen/button_width_signup"
-                android:layout_height="@dimen/spacing_4_32dp"
+            <LinearLayout
+                android:id="@+id/layout_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/activity_signup_content_text"
-                android:background="@drawable/button_border_white_selector"
-                android:clickable="true"
-                android:gravity="center"
-                android:text="@string/sign_up"
-                android:textAllCaps="false"
-                android:textColor="@color/white" />
+                android:gravity="center_horizontal">
 
-            <com.gvn.pets.widget.FontButton
-                android:id="@+id/activity_signup_login"
-                android:layout_width="@dimen/button_width_signup"
-                android:layout_height="@dimen/spacing_4_32dp"
-                android:layout_below="@+id/activity_signup_content_text"
-                android:layout_marginLeft="@dimen/spacing_3_24dp"
-                android:layout_toRightOf="@+id/activity_signup_signup"
-                android:background="@drawable/button_border_white_selector"
-                android:clickable="true"
-                android:gravity="center"
-                android:text="@string/log_in"
-                android:textAllCaps="false"
-                android:textColor="@color/white" />
+                <com.gvn.pets.widget.FontButton
+                    android:id="@+id/activity_signup_signup"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/spacing_4_32dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_border_white_selector"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="@string/sign_up"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white" />
+
+                <com.gvn.pets.widget.FontButton
+                    android:id="@+id/activity_signup_login"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/spacing_4_32dp"
+                    android:layout_below="@+id/activity_signup_content_text"
+                    android:layout_marginLeft="@dimen/spacing_3_24dp"
+                    android:layout_toRightOf="@+id/activity_signup_signup"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_border_white_selector"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="@string/log_in"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white" />
+            </LinearLayout>
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/activity_signup_login"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_4_32dp"
+                android:layout_below="@+id/layout_button"
+                android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/spacing_6_default_48dp"
                 android:src="@drawable/login_fb" />
         </RelativeLayout>

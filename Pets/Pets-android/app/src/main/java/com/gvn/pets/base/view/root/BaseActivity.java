@@ -86,6 +86,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends SupportActiv
     protected void onResume() {
         super.onResume();
         LogUtils.d(TAG, "onResume");
+        Runtime.getRuntime().gc();
     }
 
     @Override

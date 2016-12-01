@@ -72,7 +72,7 @@ public class SplashActivity extends BaseActivityDefaultCallBack<SplashPresenter>
     protected void initInject() {
         //Register fragment
         getActivityComponent().inject(this);
-        logo = bindView(R.id.activity_signup_logo);
+        logo = bindView(R.id.activity_splash_logo);
     }
 
     @Override
@@ -92,6 +92,21 @@ public class SplashActivity extends BaseActivityDefaultCallBack<SplashPresenter>
     @Override
     protected void onViewReady() {
         presenter.getApplicationInfo();
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Runtime.getRuntime().gc();
+    }
+
+    @Override
+    protected void onDestroy() {
+        handler.removeCallbacks(runnableMain);
+        handler.removeCallbacks(runnableSignUp);
+        super.onDestroy();
     }
 
     private void handleApplicationInfoBean(GetApplicationInfoBean response) {
@@ -261,18 +276,5 @@ public class SplashActivity extends BaseActivityDefaultCallBack<SplashPresenter>
         } else if (response.body() instanceof InstallCountBean) {
             onResponseInstallCount((InstallCountBean) response.body());
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Runtime.getRuntime().gc();
-    }
-
-    @Override
-    protected void onDestroy() {
-        handler.removeCallbacks(runnableMain);
-        handler.removeCallbacks(runnableSignUp);
-        super.onDestroy();
     }
 }

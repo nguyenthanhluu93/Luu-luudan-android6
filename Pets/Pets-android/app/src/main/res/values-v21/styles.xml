@@ -7,10 +7,4 @@
         <item name="android:windowSharedElementEnterTransition">@android:transition/move</item>
         <item name="android:windowSharedElementExitTransition">@android:transition/move</item>
     </style>
-
-    <style name="gvnSplash" parent="AppTheme">
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowBackground">@color/colorPrimary</item>
-        <item name="android:windowTranslucentStatus">true</item>
-    </style>
 </resources>

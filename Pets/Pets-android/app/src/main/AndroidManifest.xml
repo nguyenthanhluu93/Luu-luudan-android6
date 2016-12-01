@@ -42,6 +42,10 @@
             android:name=".ui.activity.SignUpActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".ui.activity.LoginActivity"
+            android:screenOrientation="portrait" />
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="da0e60b172173601ef953b761f99caa15d6dce16" />
