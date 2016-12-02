@@ -2,12 +2,16 @@ package com.gvn.pets.model.http.api;
 
 import com.google.gson.annotations.SerializedName;
 import com.gvn.pets.base.model.ServerRequest;
+import com.gvn.pets.model.bean.UserLogin;
 
 /**
  * Created by namIT on 11/29/2016.
  */
 
-public class LoginRequest extends ServerRequest{
+public class LoginRequest extends ServerRequest {
+
+    private static final long serialVersionUID = -6500798622766884000L;
+
     @SerializedName("device_id")
     private String device_id;
     @SerializedName("notify_token")
@@ -37,5 +41,17 @@ public class LoginRequest extends ServerRequest{
         this.device_name = device_name;
         this.os_version = os_version;
         this.gps_adid = gps_adid;
+    }
+
+    public LoginRequest(UserLogin userLogin) {
+        super("login");
+        this.device_id = userLogin.getDeviceId();
+        this.notify_token = userLogin.getNotifyToken();
+        this.device_type = 1;
+        this.login_time = userLogin.getLoginTime();
+        this.application_version = userLogin.getAppVersion();
+        this.device_name = userLogin.getDeviceName();
+        this.os_version = userLogin.getOsVersion();
+        this.gps_adid = userLogin.getGpsAdid();
     }
 }

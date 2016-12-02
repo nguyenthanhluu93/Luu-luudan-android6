@@ -25,8 +25,6 @@ import retrofit2.Call;
 
 public class SplashPresenter extends RxPresenter<SplashContract.View> implements SplashContract.Presenter {
 
-    private RetrofitHelper mRetrofitHelper;
-
     @Inject
     public SplashPresenter(RetrofitHelper mRetrofitHelper) {
         this.mRetrofitHelper = mRetrofitHelper;
@@ -71,5 +69,10 @@ public class SplashPresenter extends RxPresenter<SplashContract.View> implements
         Call<LoginBean> bodyCall = request.login(loginRequest);
         bodyCall.enqueue(new OnRetrofitCallback<LoginBean>().onRetrofitCallback(view));
         return new LoginBean();
+    }
+
+    @Override
+    public LoginBean onAutoLogin() {
+        return super.onAutoLogin();
     }
 }

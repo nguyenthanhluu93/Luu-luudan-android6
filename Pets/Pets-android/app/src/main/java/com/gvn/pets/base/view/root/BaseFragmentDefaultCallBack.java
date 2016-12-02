@@ -34,6 +34,7 @@ public abstract class BaseFragmentDefaultCallBack<T extends BasePresenter> exten
             case ServerResponse.SERVER_WRONG_DATA_FORMAT:
                 break;
             case ServerResponse.SERVER_INVALID_TOKEN:
+                presenter.onAutoLogin(getActivity().getApplicationContext());
                 break;
             case ServerResponse.SERVER_NO_CHANGE:
                 break;

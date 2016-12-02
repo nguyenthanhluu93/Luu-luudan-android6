@@ -1,6 +1,5 @@
 package com.gvn.pets.ui.activity;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
@@ -28,7 +27,6 @@ import com.gvn.pets.utils.Utils;
 import com.gvn.pets.utils.prefers.AppPreference;
 import com.gvn.pets.utils.prefers.GoogleReviewPreference;
 import com.gvn.pets.utils.prefers.UserPreference;
-import com.nankai.designlayout.dialog.DialogMaterial;
 
 import retrofit2.Response;
 
@@ -109,52 +107,15 @@ public class SplashActivity extends BaseActivityDefaultCallBack<SplashPresenter>
         super.onDestroy();
     }
 
-    private void handleApplicationInfoBean(GetApplicationInfoBean response) {
-        int code = response.getCode();
-        GoogleReviewPreference preference = GoogleReviewPreference.getInstance();
-        if (code == ServerResponse.SERVER_SUCCESS) {
-            preference.saveTurnOffVersion(response.switchBrowserVersion);
-            preference.saveEnableGetFreePoint(response.isGetFreePoint);
-            preference.saveEnableLoginByAnotherSystem(response
-                    .isLoginByAnotherSystem);
-            preference.saveEnableBrowser(response.isSwitchBrowser);
-            preference.saveIsTurnOffUserInfo(response.isTurnOffUserInfo);
-        } else {
-            preference.saveTurnOffVersion("");
-            preference.saveEnableGetFreePoint(false);
-            preference.saveEnableLoginByAnotherSystem(false);
-            preference.saveEnableBrowser(false);
-            preference.saveIsTurnOffUserInfo(false);
-        }
-
-        // Check application first install
-        AppPreference preferences = AppPreference.getInstance();
-
-        if (preferences.isInstall()) {
-            checkInfoUpdated();
-        } else {
-            // Request to count and check user info after count
-            String android_id = Settings.Secure.getString(getContentResolver(),
-                    Settings.Secure.ANDROID_ID);
-            InstallCountRequest countRequest = new InstallCountRequest(1, android_id);
-            presenter.sendInstallCount(countRequest);
-        }
-    }
-
     private void checkInfoUpdated() {
         UserPreference userPreference = UserPreference.getInstance();
         String token = userPreference.getToken();
-
         int type = Utils.isNeededGetUserStatus();
-
         if (type != GetUserStatusRequest.TYPE_NONE) {
             requestGetUserStatus(type);
         } else if (TextUtils.isEmpty(token)) {
-            autoLogin();
+            //TODO autoLogin;
         } else {
-            // Register Linphone service
-//            LinphoneService.startLogin(getApplicationContext());
-
             // Request user information updated
             GetUpdateInfoFlagRequest request = new GetUpdateInfoFlagRequest(
                     token);
@@ -176,64 +137,65 @@ public class SplashActivity extends BaseActivityDefaultCallBack<SplashPresenter>
             default:
                 break;
         }
-
         if (data == null)
             return;
-
         GetUserStatusRequest request = new GetUserStatusRequest(type, data);
         presenter.getUserStatusRequest(request);
     }
 
-    private void onResponseUpdateInfoFlag(GetUpdateInfoFlagBean response) {
+    private void handleApplicationInfoBean(GetApplicationInfoBean response) {
+        int code = response.getCode();
+        GoogleReviewPreference preference = GoogleReviewPreference.getInstance();
+        if (code == ServerResponse.SERVER_SUCCESS) {
+            preference.saveTurnOffVersion(response.switchBrowserVersion);
+            preference.saveEnableGetFreePoint(response.isGetFreePoint);
+            preference.saveEnableLoginByAnotherSystem(response
+                    .isLoginByAnotherSystem);
+            preference.saveEnableBrowser(response.isSwitchBrowser);
+            preference.saveIsTurnOffUserInfo(response.isTurnOffUserInfo);
+        } else {
+            preference.saveTurnOffVersion("");
+            preference.saveEnableGetFreePoint(false);
+            preference.saveEnableLoginByAnotherSystem(false);
+            preference.saveEnableBrowser(false);
+            preference.saveIsTurnOffUserInfo(false);
+        }
+
+        // Check application first install
+        AppPreference preferences = AppPreference.getInstance();
+        if (preferences.isInstall()) {
+            checkInfoUpdated();
+        } else {
+            // Request to count and check user info after count
+            String android_id = Settings.Secure.getString(getContentResolver(),
+                    Settings.Secure.ANDROID_ID);
+            InstallCountRequest countRequest = new InstallCountRequest(1, android_id);
+            presenter.sendInstallCount(countRequest);
+        }
+    }
+
+    private void handleResponseUpdateInfoFlag(GetUpdateInfoFlagBean response) {
         int code = response.getCode();
         switch (code) {
             case ServerResponse.SERVER_SUCCESS:
                 UserPreference pre = UserPreference.getInstance();
                 pre.saveAgeVerification(response.verificationFlag);
                 pre.saveFinishRegister(response.finishRegisterFlag);
-            case ServerResponse.SERVER_ACCESS_DENIED:
-            case ServerResponse.SERVER_INVALID_TOKEN:
-                UserPreference prefers = UserPreference.getInstance();
-                if (!TextUtils.isEmpty(prefers.getToken())) {
-                    startMainScreen();
-                } else {
-                    if (null != autoLogin())
-                        presenter.onResponseLogin(autoLogin());
-                }
-                break;
-            default:
-                final DialogMaterial.Builder dialogError = new DialogMaterial.Builder(this)
-                        .setIcon(R.mipmap.ic_launcher)
-                        .withDialogAnimation(true)
-                        .setTitle("Error!")
-                        .setDescription("Error")
-                        .setHeaderColor(R.color.colorAccent)
-                        .onPositive("ok", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                LogUtils.d(TAG, "Dialog dismiss");
-                                dialog.dismiss();
-                            }
-                        });
-                dialogError.show();
                 break;
         }
     }
 
-    private void onResponseLogin(LoginBean loginBean) {
+    private void handleResponseLogin(LoginBean loginBean) {
         int code = loginBean.getCode();
         switch (code) {
             case ServerResponse.SERVER_SUCCESS:
                 // Save info when login success
                 AuthenticationBean authenData = loginBean.authenData;
-
                 UserPreference userPreferences = UserPreference.getInstance();
                 userPreferences.saveSuccessLoginData(authenData, true);
-
                 AppPreference preferences = AppPreference.getInstance();
                 preferences.saveTimeSetting(authenData);
                 preferences.savePointSetting(authenData);
-
                 // Login time
                 preferences.saveTimeRelogin(System.currentTimeMillis());
                 GoogleReviewPreference googleReviewPreference = new GoogleReviewPreference();
@@ -266,15 +228,12 @@ public class SplashActivity extends BaseActivityDefaultCallBack<SplashPresenter>
     public <E extends ServerResponse> void showContent(Response<E> response) {
         if (response.body() instanceof GetApplicationInfoBean) {
             handleApplicationInfoBean((GetApplicationInfoBean) response.body());
-
         } else if (response.body() instanceof GetUpdateInfoFlagBean) {
-            onResponseUpdateInfoFlag((GetUpdateInfoFlagBean) response.body());
-
+            handleResponseUpdateInfoFlag((GetUpdateInfoFlagBean) response.body());
         } else if (response.body() instanceof LoginBean) {
-            onResponseLogin((LoginBean) response.body());
-
+            handleResponseLogin((LoginBean) response.body());
         } else if (response.body() instanceof InstallCountBean) {
-            onResponseInstallCount((InstallCountBean) response.body());
+            handleResponseInstallCount((InstallCountBean) response.body());
         }
     }
 }

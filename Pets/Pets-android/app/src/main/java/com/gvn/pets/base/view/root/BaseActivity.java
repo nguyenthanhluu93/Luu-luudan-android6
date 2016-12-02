@@ -163,41 +163,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends SupportActiv
 //            finish();
     }
 
-    public LoginRequest autoLogin() {
-        UserPreference userPreferences = UserPreference.getInstance();
-
-        // Authentication data
-        String email = userPreferences.getEmail();
-        String facebookId = userPreferences.getFacebookId();
-        String pass = userPreferences.getPassword();
-
-        // Get basic login data
-        String device_id = SystemUtils.getDeviceId();
-        String notify_token = AppPreference.getInstance().getGCMResitrationId();
-        String login_time = TimeUtils.getLoginTime();
-        String appVersion = SystemUtils.getAppVersionName(this);
-        String device_name = SystemUtils.getDeviceName();
-        String os_version = SystemUtils.getAndroidOSVersion();
-        String gps_adid = AppPreference.getInstance().getGPSADID();
-
-        LoginRequest loginRequest = null;
-
-        if (!TextUtils.isEmpty(email)) {
-            loginRequest = new LoginByEmailRequest(email, pass, device_id,
-                    notify_token, login_time, appVersion, device_name, os_version, gps_adid);
-        } else if (!TextUtils.isEmpty(facebookId)) {
-            loginRequest = new LoginByFacebookRequest(facebookId, device_id,
-                    notify_token, login_time, appVersion, device_name, os_version, gps_adid);
-        } else {
-            if (this instanceof SplashActivity)
-                startAuthenScreen();
-        }
-
-        if (loginRequest != null)
-            return loginRequest;
-        return null;
-    }
-
     /**
      * Replacement findViewById
      *
