@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Session10</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login_here">Login here</string>
+    <string name="test_custom_dialog">Test custom dialog</string>
+    <string name="remove">Remove</string>
+    <string name="test_snackbar">Test snackbar</string>
+</resources>
