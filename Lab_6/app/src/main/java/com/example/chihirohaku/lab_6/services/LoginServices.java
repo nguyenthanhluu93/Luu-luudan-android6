@@ -1,6 +1,6 @@
 package com.example.chihirohaku.lab_6.services;
 
-import com.example.chihirohaku.lab_6.models.Status;
+import com.example.chihirohaku.lab_6.models.BodyResponse;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -13,5 +13,5 @@ import retrofit2.http.POST;
 
 public interface LoginServices {
     @POST("login")
-    Call<Status> login(@Body RequestBody body);
+    Call<BodyResponse> login(@Body RequestBody body);
 }

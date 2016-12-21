@@ -7,6 +7,10 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class Account {
+
+    public static final String DATA = "my_sharepreferences";
+    public static final String TOKEN = "key_token";
+
     @SerializedName("username")
     private String username;
     @SerializedName("password")

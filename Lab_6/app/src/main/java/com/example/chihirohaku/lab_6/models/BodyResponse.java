@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by Chihirohaku on 12/18/2016.
  */
 
-public class Status {
+public class BodyResponse {
     @SerializedName("token")
     private String token;
     @SerializedName("result")
@@ -40,7 +40,7 @@ public class Status {
 
     @Override
     public String toString() {
-        return "Status{" +
+        return "BodyResponse{" +
                 "result='" + result + '\'' +
                 ", message='" + message + '\'' +
                 '}';

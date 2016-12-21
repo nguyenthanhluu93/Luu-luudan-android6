@@ -14,8 +14,11 @@ import android.widget.EditText;
 
 import com.example.chihirohaku.lab_6.DBContext;
 import com.example.chihirohaku.lab_6.R;
+import com.example.chihirohaku.lab_6.eventbus.OpenFragmentEvent;
 import com.example.chihirohaku.lab_6.models.Account;
-import com.example.chihirohaku.lab_6.models.Status;
+import com.example.chihirohaku.lab_6.models.BodyResponse;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,14 +27,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.chihirohaku.lab_6.models.Account.DATA;
+import static com.example.chihirohaku.lab_6.models.Account.TOKEN;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class LoginFragment extends Fragment {
 
-    public static final String DATA = "my_sharepreferences";
-    public static final String TOKEN = "key_token";
+    private static final String TAG = LoginFragment.class.toString();
     @BindView(R.id.edt_username)
     EditText edtUserName;
     @BindView(R.id.edt_pass)
@@ -62,12 +67,12 @@ public class LoginFragment extends Fragment {
         String username = edtUserName.getText().toString();
         String password = edtPassWord.getText().toString();
         Account account = new Account(username, password);
-        DBContext.getRegisterBody(account).enqueue(new Callback<Status>() {
+        DBContext.getRegisterBody(account).enqueue(new Callback<BodyResponse>() {
             @Override
-            public void onResponse(Call<Status> call, Response<Status> response) {
+            public void onResponse(Call<BodyResponse> call, Response<BodyResponse> response) {
                 Log.d("oc", "dmdmdmdmdmdmdmd");
                 if (response.code() == 201) {
-                    Status status = response.body();
+                    BodyResponse status = response.body();
                     Log.d("oc", status.toString());
                 } else {
                     Log.d("oc", "dm tuan oc cho");
@@ -76,7 +81,7 @@ public class LoginFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<Status> call, Throwable t) {
+            public void onFailure(Call<BodyResponse> call, Throwable t) {
 
             }
         });
@@ -88,23 +93,27 @@ public class LoginFragment extends Fragment {
         String userName = edtUserName.getText().toString();
         String pass = edtPassWord.getText().toString();
         Account account = new Account(userName, pass);
-        DBContext.getLoginBody(account).enqueue(new Callback<Status>() {
+        DBContext.getLoginBody(account).enqueue(new Callback<BodyResponse>() {
             @Override
-            public void onResponse(Call<Status> call, Response<Status> response) {
+            public void onResponse(Call<BodyResponse> call, Response<BodyResponse> response) {
                 if (response.code() == 201) {
-                    Status status = response.body();
+                    BodyResponse status = response.body();
                     String token = response.body().getToken();
                     Log.d("token", String.format("%s", token));
+
                     SharedPreferences sharedPreferences = getActivity().getSharedPreferences(DATA, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString(TOKEN, token);
                     editor.commit();
+
+                    OpenFragmentEvent openFragmentEvent = new OpenFragmentEvent(new NoteFragment(), true);
+                    EventBus.getDefault().post(openFragmentEvent);
                 }
             }
 
             @Override
-            public void onFailure(Call<Status> call, Throwable t) {
-
+            public void onFailure(Call<BodyResponse> call, Throwable t) {
+                Log.d(TAG, String.format("onFailure: %s", t));
             }
         });
     }
