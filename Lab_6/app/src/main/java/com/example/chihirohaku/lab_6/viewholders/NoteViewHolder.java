@@ -1,7 +1,9 @@
 package com.example.chihirohaku.lab_6.viewholders;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.chihirohaku.lab_6.R;
@@ -21,6 +23,8 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
     TextView tvContent;
     @BindView(R.id.tv_color)
     TextView tvColor;
+    @BindView(R.id.ll_item_note)
+    LinearLayout llNote;
 
     public NoteViewHolder(View itemView) {
         super(itemView);
@@ -31,5 +35,6 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
         tvTitle.setText(note.getTitle());
         tvContent.setText(note.getContent());
         tvColor.setText(note.getColor());
+        llNote.setBackgroundColor(Color.parseColor(note.getColor()));
     }
 }

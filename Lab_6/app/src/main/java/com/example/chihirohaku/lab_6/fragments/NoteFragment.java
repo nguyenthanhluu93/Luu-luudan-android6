@@ -4,6 +4,7 @@ package com.example.chihirohaku.lab_6.fragments;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -59,9 +60,15 @@ public class NoteFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         initData();
-        sendGET();
+//        sendGET();
         setupUI();
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        sendGET();
     }
 
     @OnClick(R.id.img_add)

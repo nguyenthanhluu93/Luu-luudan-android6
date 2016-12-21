@@ -1,6 +1,8 @@
 package com.example.chihirohaku.lab_6.services;
 
-import com.example.chihirohaku.lab_6.models.BodyResponse;
+import com.example.chihirohaku.lab_6.models.Note;
+
+import java.util.List;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -14,5 +16,5 @@ import retrofit2.http.POST;
 
 public interface CreateToDoServices {
     @POST("todos")
-    Call<BodyResponse> createNote(@Body RequestBody body, @Header("token") String token);
+    Call<List<Note>> createNote(@Body RequestBody body, @Header("token") String token);
 }

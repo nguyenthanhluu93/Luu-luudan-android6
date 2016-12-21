@@ -45,7 +45,7 @@ public class DBContext {
         return REGISTER_RETROFIT.create(AllListToDoServices.class).getAllNotes(token);
     }
 
-    public static Call<BodyResponse> getNoteBody(Note note, String token){
+    public static Call<List<Note>> getNoteBody(Note note, String token){
         RequestBody requestBody = RequestBody.create(
                 MediaType.parse("application/json"),
                 (new Gson()).toJson(note));
