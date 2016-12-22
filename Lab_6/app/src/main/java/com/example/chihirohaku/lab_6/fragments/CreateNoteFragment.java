@@ -18,8 +18,11 @@ import android.widget.TextView;
 
 import com.example.chihirohaku.lab_6.DBContext;
 import com.example.chihirohaku.lab_6.R;
+import com.example.chihirohaku.lab_6.eventbus.OpenFragmentEvent;
 import com.example.chihirohaku.lab_6.models.Account;
 import com.example.chihirohaku.lab_6.models.Note;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -86,6 +89,8 @@ public class CreateNoteFragment extends Fragment {
                 for (Note note1 : notes) {
                     Log.d(TAG, note1.toString());
                 }
+                OpenFragmentEvent openFragmentEvent = new OpenFragmentEvent(new CreateNoteFragment(), false, true);
+                EventBus.getDefault().post(openFragmentEvent);
             }
 
             @Override

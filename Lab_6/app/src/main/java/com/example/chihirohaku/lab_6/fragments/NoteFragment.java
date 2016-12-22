@@ -4,7 +4,6 @@ package com.example.chihirohaku.lab_6.fragments;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -51,7 +50,6 @@ public class NoteFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -60,20 +58,13 @@ public class NoteFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         initData();
-//        sendGET();
-        setupUI();
-        return view;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
         sendGET();
+        return view;
     }
 
     @OnClick(R.id.img_add)
     public void onAddClick(View view) {
-        OpenFragmentEvent openFragmentEvent = new OpenFragmentEvent(new CreateNoteFragment(), true);
+        OpenFragmentEvent openFragmentEvent = new OpenFragmentEvent(new CreateNoteFragment(), true, false);
         EventBus.getDefault().post(openFragmentEvent);
     }
 
@@ -97,6 +88,7 @@ public class NoteFragment extends Fragment {
                 for (Note note : Note.notes) {
                     Log.d(TAG, note.toString());
                 }
+                setupUI();
             }
 
             @Override
@@ -105,5 +97,7 @@ public class NoteFragment extends Fragment {
             }
         });
     }
+
+
 
 }

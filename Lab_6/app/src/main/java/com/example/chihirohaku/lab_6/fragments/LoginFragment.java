@@ -1,6 +1,7 @@
 package com.example.chihirohaku.lab_6.fragments;
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -46,6 +47,8 @@ public class LoginFragment extends Fragment {
     @BindView(R.id.btn_register)
     Button btnRegister;
 
+    ProgressDialog progressDialog;
+
     public LoginFragment() {
         // Required empty public constructor
     }
@@ -89,6 +92,9 @@ public class LoginFragment extends Fragment {
 
     @OnClick(R.id.btn_login)
     public void onLoginClick(View view) {
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.show();
         Log.d("oc", "dm tuan oc cho");
         String userName = edtUserName.getText().toString();
         String pass = edtPassWord.getText().toString();
@@ -105,8 +111,8 @@ public class LoginFragment extends Fragment {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString(TOKEN, token);
                     editor.commit();
-
-                    OpenFragmentEvent openFragmentEvent = new OpenFragmentEvent(new NoteFragment(), true);
+                    progressDialog.dismiss();
+                    OpenFragmentEvent openFragmentEvent = new OpenFragmentEvent(new NoteFragment(), false, false);
                     EventBus.getDefault().post(openFragmentEvent);
                 }
             }

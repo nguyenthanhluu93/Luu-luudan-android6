@@ -9,15 +9,12 @@ import com.example.chihirohaku.lab_6.R;
 import com.example.chihirohaku.lab_6.eventbus.OpenFragmentEvent;
 import com.example.chihirohaku.lab_6.fragments.LoginFragment;
 import com.example.chihirohaku.lab_6.fragments.NoteFragment;
-import com.example.chihirohaku.lab_6.models.Note;
-
-import static com.example.chihirohaku.lab_6.models.Account.DATA;
-import static com.example.chihirohaku.lab_6.models.Account.TOKEN;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.util.List;
+import static com.example.chihirohaku.lab_6.models.Account.DATA;
+import static com.example.chihirohaku.lab_6.models.Account.TOKEN;
 
 public class MainActivity extends BaseActivity {
 
@@ -35,17 +32,17 @@ public class MainActivity extends BaseActivity {
         String token = sharedPreferences.getString(TOKEN, "");
         Log.d(TAG, String.format("%s", token));
 
-//        if (token == null) {
+        if (token.equals("")) {
             LoginFragment loginFragment = new LoginFragment();
-            changeFragment(R.id.fl_oc, loginFragment);
-//        } else {
-//            NoteFragment noteFragment = new NoteFragment();
-//            changeFragment(R.id.fl_oc, noteFragment);
-//        }
+            changeFragment(R.id.fl_oc, loginFragment, false, false);
+        } else {
+            NoteFragment noteFragment = new NoteFragment();
+            changeFragment(R.id.fl_oc, noteFragment, false, false);
+        }
     }
 
     @Subscribe
     public void onMessageEvent(OpenFragmentEvent openFragmentEvent) {
-        changeFragment(R.id.fl_oc, openFragmentEvent.getFragment());
+        changeFragment(R.id.fl_oc, openFragmentEvent.getFragment(), openFragmentEvent.isAddToBackstack(), openFragmentEvent.isRemoveFromBackstack());
     }
 }
