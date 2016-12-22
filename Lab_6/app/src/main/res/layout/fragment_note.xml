@@ -17,6 +17,6 @@
         android:layout_height="50dp"
         android:src="@drawable/ic_add_note"
         android:layout_gravity="bottom|right"
-        android:tint="@android:color/holo_green_light"/>
+        android:tint="@color/green"/>
 
 </FrameLayout>
