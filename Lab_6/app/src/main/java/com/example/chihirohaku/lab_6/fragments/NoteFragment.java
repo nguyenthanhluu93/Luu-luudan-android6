@@ -64,7 +64,7 @@ public class NoteFragment extends Fragment {
 
     @OnClick(R.id.img_add)
     public void onAddClick(View view) {
-        OpenFragmentEvent openFragmentEvent = new OpenFragmentEvent(new CreateNoteFragment(), true, false);
+        OpenFragmentEvent openFragmentEvent = new OpenFragmentEvent(new CreateNoteFragment(), false, false);
         EventBus.getDefault().post(openFragmentEvent);
     }
 

@@ -15,11 +15,8 @@ import android.widget.EditText;
 
 import com.example.chihirohaku.lab_6.DBContext;
 import com.example.chihirohaku.lab_6.R;
-import com.example.chihirohaku.lab_6.eventbus.OpenFragmentEvent;
 import com.example.chihirohaku.lab_6.models.Account;
 import com.example.chihirohaku.lab_6.models.BodyResponse;
-
-import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -112,8 +109,8 @@ public class LoginFragment extends Fragment {
                     editor.putString(TOKEN, token);
                     editor.commit();
                     progressDialog.dismiss();
-                    OpenFragmentEvent openFragmentEvent = new OpenFragmentEvent(new NoteFragment(), false, false);
-                    EventBus.getDefault().post(openFragmentEvent);
+//                    OpenFragmentEvent openFragmentEvent = new OpenFragmentEvent(new NoteFragment(), false, false);
+//                    EventBus.getDefault().post(openFragmentEvent);
                 }
             }
 
