@@ -1,22 +1,51 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="10dp"
     tools:context="com.example.chihirohaku.lab_6.fragments.NoteFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <!--&lt;!&ndash; TODO: Update blank fragment layout &ndash;&gt;-->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_note"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <ImageView
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/img_add"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/ic_add_note"
-        android:layout_gravity="bottom|right"
-        android:tint="@color/green"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_input_add"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        app:backgroundTint="@android:color/holo_red_dark"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"/>
 
-</FrameLayout>
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/header"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentTop="true">-->
+        <!---->
+    <!--</RelativeLayout>-->
+
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/content"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_above="@+id/footer"-->
+        <!--android:layout_below="@+id/header">-->
+        <!---->
+    <!--</RelativeLayout>-->
+
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/footer"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true">-->
+        <!---->
+    <!--</RelativeLayout>-->
+
+</RelativeLayout>

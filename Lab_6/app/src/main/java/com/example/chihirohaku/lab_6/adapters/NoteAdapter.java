@@ -1,6 +1,7 @@
 package com.example.chihirohaku.lab_6.adapters;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,9 +25,15 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(NoteViewHolder holder, int position) {
+    public void onBindViewHolder(final NoteViewHolder holder, int position) {
         Note note = Note.notes.get(position);
         holder.bind(note);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("oc", String.format("onClick"));
+            }
+        });
     }
 
     @Override

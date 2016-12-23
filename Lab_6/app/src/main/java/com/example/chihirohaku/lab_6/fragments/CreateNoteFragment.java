@@ -4,6 +4,7 @@ package com.example.chihirohaku.lab_6.fragments;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,8 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -47,9 +47,9 @@ public class CreateNoteFragment extends Fragment {
     @BindView(R.id.sp_color)
     Spinner spColor;
     @BindView(R.id.img_check)
-    ImageView imgCheck;
+    FloatingActionButton imgCheck;
     @BindView(R.id.fr_create_note)
-    FrameLayout frCreateNote;
+    RelativeLayout frCreateNote;
     @BindColor(R.color.yellow) int yellow;
     @BindColor(R.color.red) int red;
     @BindColor(R.color.blue) int blue;
