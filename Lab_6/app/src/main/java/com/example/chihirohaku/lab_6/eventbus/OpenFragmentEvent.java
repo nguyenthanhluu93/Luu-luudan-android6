@@ -9,12 +9,10 @@ import android.support.v4.app.Fragment;
 public class OpenFragmentEvent {
     private Fragment fragment;
     private boolean addToBackstack;
-    private boolean removeFromBackstack;
 
-    public OpenFragmentEvent(Fragment fragment, boolean addToBackstack, boolean removeFromBackstack) {
+    public OpenFragmentEvent(Fragment fragment, boolean addToBackstack) {
         this.fragment = fragment;
         this.addToBackstack = addToBackstack;
-        this.removeFromBackstack = removeFromBackstack;
     }
 
     public Fragment getFragment() {
@@ -25,7 +23,4 @@ public class OpenFragmentEvent {
         return addToBackstack;
     }
 
-    public boolean isRemoveFromBackstack() {
-        return removeFromBackstack;
-    }
 }

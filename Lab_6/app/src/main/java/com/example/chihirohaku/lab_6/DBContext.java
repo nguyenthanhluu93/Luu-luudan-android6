@@ -5,6 +5,7 @@ import com.example.chihirohaku.lab_6.models.BodyResponse;
 import com.example.chihirohaku.lab_6.models.Note;
 import com.example.chihirohaku.lab_6.services.AllListToDoServices;
 import com.example.chihirohaku.lab_6.services.CreateToDoServices;
+import com.example.chihirohaku.lab_6.services.EditToDoServices;
 import com.example.chihirohaku.lab_6.services.LoginServices;
 import com.example.chihirohaku.lab_6.services.RegisterServices;
 import com.google.gson.Gson;
@@ -50,5 +51,12 @@ public class DBContext {
                 MediaType.parse("application/json"),
                 (new Gson()).toJson(note));
         return REGISTER_RETROFIT.create(CreateToDoServices.class).createNote(requestBody, token);
+    }
+
+    public static Call<Note> getNoteEdit(Note note, String token, String id){
+        RequestBody requestBody = RequestBody.create(
+                MediaType.parse("application/json"),
+                (new Gson()).toJson(note));
+        return REGISTER_RETROFIT.create(EditToDoServices.class).editNote(requestBody, token, id);
     }
 }

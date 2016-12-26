@@ -2,6 +2,7 @@ package com.example.chihirohaku.lab_6.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * Created by Chihirohaku on 12/20/2016.
  */
 
-public class Note {
+public class Note implements Serializable {
     @SerializedName("content")
     private String content;
     @SerializedName("completed")
@@ -20,6 +21,9 @@ public class Note {
     private String color;
     @SerializedName("title")
     private String title;
+
+    @SerializedName("username")
+    private String userName;
 
     public Note(String content, boolean isComplete, String color, String title) {
         this.content = content;
@@ -76,8 +80,17 @@ public class Note {
                 ", id=" + id +
                 ", color='" + color + '\'' +
                 ", title='" + title + '\'' +
+                ", userName='" + userName + '\'' +
                 '}';
     }
 
-    public static ArrayList<Note> notes;
+    public static ArrayList<Note> notes = new ArrayList<>();
+
+    public static ArrayList<Note> getNotes() {
+        return notes;
+    }
+
+    public static void setNotes(ArrayList<Note> notes) {
+        Note.notes = notes;
+    }
 }

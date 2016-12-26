@@ -15,7 +15,7 @@
         android:weightSum="1">
 
         <EditText
-            android:id="@+id/edt_create_title"
+            android:id="@+id/edt_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/title"
@@ -23,7 +23,7 @@
             android:padding="10dp"/>
 
         <EditText
-            android:id="@+id/edt_create_content"
+            android:id="@+id/edt_content"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:hint="@string/content"
@@ -34,7 +34,7 @@
             android:layout_weight="0.34" />
 
         <Spinner
-            android:id="@+id/sp_color"
+            android:id="@+id/sp_color_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"/>

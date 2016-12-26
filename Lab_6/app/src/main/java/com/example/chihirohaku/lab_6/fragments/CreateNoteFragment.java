@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -20,10 +21,12 @@ import com.example.chihirohaku.lab_6.DBContext;
 import com.example.chihirohaku.lab_6.R;
 import com.example.chihirohaku.lab_6.eventbus.OpenFragmentEvent;
 import com.example.chihirohaku.lab_6.models.Account;
+import com.example.chihirohaku.lab_6.models.Color;
 import com.example.chihirohaku.lab_6.models.Note;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindColor;
@@ -40,25 +43,21 @@ import retrofit2.Response;
 public class CreateNoteFragment extends Fragment {
 
     private static final String TAG = CreateNoteFragment.class.toString();
-    @BindView(R.id.edt_create_title)
-    TextView edtTitle;
-    @BindView(R.id.edt_create_content)
-    TextView edtContent;
-    @BindView(R.id.sp_color)
+    @BindView(R.id.edt_title)
+    EditText edtTitle;
+    @BindView(R.id.edt_content)
+    EditText edtContent;
+    @BindView(R.id.sp_color_list)
     Spinner spColor;
     @BindView(R.id.img_check)
     FloatingActionButton imgCheck;
     @BindView(R.id.fr_create_note)
     RelativeLayout frCreateNote;
-    @BindColor(R.color.yellow) int yellow;
-    @BindColor(R.color.red) int red;
-    @BindColor(R.color.blue) int blue;
-    @BindColor(R.color.violet) int violet;
-    @BindColor(R.color.shit) int shit;
 
-    String[] COLORS = new String[] {"Yellow", "Red", "Blue", "Violet", "Shit"};
     ArrayAdapter adapter;
     private String title, content, color;
+
+    ArrayList<Color> colors = new ArrayList<>();
 
     public CreateNoteFragment() {
         // Required empty public constructor
@@ -71,14 +70,25 @@ public class CreateNoteFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_create_note, container, false);
         ButterKnife.bind(this, view);
+        initData();
         setupUI();
         return view;
+    }
+
+    private void initData() {
+        colors.add(new Color("Yellow", "#FFFF00"));
+        colors.add(new Color("Red", "#DD2C00"));
+        colors.add(new Color("Blue", "#0091EA"));
+        colors.add(new Color("Violet", "#EA80FC"));
+        colors.add(new Color("Shit", "#CDDC39"));
+        colors.add(new Color("Green", "#4CAF50"));
     }
 
     @OnClick(R.id.img_check)
     public void onCheckClick(View view) {
         title = edtTitle.getText().toString();
         content = edtContent.getText().toString();
+        color = ((Color) spColor.getSelectedItem()).getKey();
         Note note = new Note(content, false, color, title);
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Account.DATA, Context.MODE_PRIVATE);
         String token = sharedPreferences.getString(Account.TOKEN, "");
@@ -89,7 +99,7 @@ public class CreateNoteFragment extends Fragment {
                 for (Note note1 : notes) {
                     Log.d(TAG, note1.toString());
                 }
-                OpenFragmentEvent openFragmentEvent = new OpenFragmentEvent(new CreateNoteFragment(), false, true);
+                OpenFragmentEvent openFragmentEvent = new OpenFragmentEvent(new ViewPagerNoteFragment(), false);
                 EventBus.getDefault().post(openFragmentEvent);
             }
 
@@ -101,33 +111,13 @@ public class CreateNoteFragment extends Fragment {
     }
 
     private void setupUI() {
-        adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item, COLORS);
+        adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item, colors);
         spColor.setAdapter(adapter);
+        frCreateNote.setBackgroundColor(android.graphics.Color.parseColor(((Color) spColor.getSelectedItem()).getKey()));
         spColor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                switch (i) {
-                    case 0:
-                        frCreateNote.setBackgroundColor(yellow);
-                        color = "#FFFF00";
-                        break;
-                    case 1:
-                        frCreateNote.setBackgroundColor(red);
-                        color = "#DD2C00";
-                        break;
-                    case 2:
-                        frCreateNote.setBackgroundColor(blue);
-                        color = "#0091EA";
-                        break;
-                    case 3:
-                        frCreateNote.setBackgroundColor(violet);
-                        color = "#EA80FC";
-                        break;
-                    case 4:
-                        frCreateNote.setBackgroundColor(shit);
-                        color = "#CDDC39";
-                        break;
-                }
+                frCreateNote.setBackgroundColor(android.graphics.Color.parseColor(((Color) spColor.getSelectedItem()).getKey()));
             }
 
             @Override
@@ -136,5 +126,6 @@ public class CreateNoteFragment extends Fragment {
             }
         });
     }
+
 
 }

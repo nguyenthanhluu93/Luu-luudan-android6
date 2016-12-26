@@ -4,6 +4,7 @@ package com.example.chihirohaku.lab_6.fragments;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -43,8 +44,7 @@ public class NoteFragment extends Fragment {
 
     @BindView(R.id.rv_note)
     RecyclerView rvNote;
-    @BindView(R.id.img_add)
-    FloatingActionButton imgAdd;
+    NoteAdapter noteAdapter;
 
     public NoteFragment() {
         // Required empty public constructor
@@ -56,24 +56,13 @@ public class NoteFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_note, container, false);
         ButterKnife.bind(this, view);
-
-        initData();
+        setupUI();
         sendGET();
         return view;
     }
 
-    @OnClick(R.id.img_add)
-    public void onAddClick(View view) {
-        OpenFragmentEvent openFragmentEvent = new OpenFragmentEvent(new CreateNoteFragment(), false, false);
-        EventBus.getDefault().post(openFragmentEvent);
-    }
-
-    private void initData() {
-        Note.notes = new ArrayList<Note>();
-    }
-
     private void setupUI() {
-        NoteAdapter noteAdapter = new NoteAdapter();
+        noteAdapter = new NoteAdapter();
         rvNote.setLayoutManager(new StaggeredGridLayoutManager(2, 1));
         rvNote.setAdapter(noteAdapter);
     }
@@ -84,10 +73,11 @@ public class NoteFragment extends Fragment {
         DBContext.getNoteRepos(token).enqueue(new Callback<List<Note>>() {
             @Override
             public void onResponse(Call<List<Note>> call, Response<List<Note>> response) {
-                Note.notes = (ArrayList<Note>) response.body();
+                ArrayList<Note> notes = (ArrayList<Note>) response.body();
                 for (Note note : Note.notes) {
                     Log.d(TAG, note.toString());
                 }
+                Note.setNotes(notes);
                 setupUI();
             }
 

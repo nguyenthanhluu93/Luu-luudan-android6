@@ -11,8 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 
 public class BaseActivity extends AppCompatActivity {
 
-    public void changeFragment(int resId, Fragment detailFragment, boolean addToBackstack, boolean removeFromBackstack) { // Fragment v4.app
-        if (addToBackstack) {
+    public void changeFragment(int resId, Fragment detailFragment, boolean addToBackstack) { // Fragment v4.app
             // get fragmentManager
             FragmentManager fragmentManager = getSupportFragmentManager();
 
@@ -23,35 +22,12 @@ public class BaseActivity extends AppCompatActivity {
             //
             fragmentTransaction.replace(resId, detailFragment);
 
-            fragmentTransaction.addToBackStack("");
-
-            fragmentTransaction.commit();
-        } else {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-
-            // Start replacing
-
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-            //
-            fragmentTransaction.replace(resId, detailFragment);
+            if (addToBackstack) {
+                fragmentTransaction.addToBackStack("");
+            }
 
             fragmentTransaction.commit();
         }
-        if (removeFromBackstack){
-            FragmentManager fragmentManager = getSupportFragmentManager();
 
-            // Start replacing
-
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-            //
-            fragmentTransaction.remove(detailFragment);
-
-            fragmentTransaction.commit();
-
-            fragmentManager.popBackStack();
-        }
-    }
 
 }
