@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:title="Search"
+        android:icon="@drawable/ic_search_black_24px"
+        android:id="@+id/actionbar_ic_search"
+        app:showAsAction="always"/>
+    <item
+        android:title="Favorite"
+        android:icon="@drawable/ic_heart_outline"
+        android:id="@+id/actionbar_ic_favorite"
+        app:showAsAction="always"/>
+
+    <item
+        android:title="Share"
+        android:icon="@drawable/ic_share_black_24px"
+        android:id="@+id/actionbar_ic_share"
+        app:showAsAction="always"/>
+
+</menu>

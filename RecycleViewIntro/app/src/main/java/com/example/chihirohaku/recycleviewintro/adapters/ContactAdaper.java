@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.chihirohaku.recycleviewintro.IOnRecyclerListener;
 import com.example.chihirohaku.recycleviewintro.R;
 import com.example.chihirohaku.recycleviewintro.models.Contact;
 import com.example.chihirohaku.recycleviewintro.viewholders.ContactViewHolder;
@@ -15,6 +16,12 @@ import com.example.chihirohaku.recycleviewintro.viewholders.ContactViewHolder;
 
 public class ContactAdaper extends RecyclerView.Adapter<ContactViewHolder> {
 
+    private IOnRecyclerListener onRecyclerListener;
+
+    public ContactAdaper(IOnRecyclerListener onRecyclerListener) {
+        this.onRecyclerListener = onRecyclerListener;
+    }
+
     @Override
     public ContactViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
@@ -24,11 +31,17 @@ public class ContactAdaper extends RecyclerView.Adapter<ContactViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(ContactViewHolder holder, int position) {
+    public void onBindViewHolder(ContactViewHolder holder, final int position) {
         // holder, position (data)
         // VH + DATA => data
         Contact contact = Contact.CONTACTS[position];
         holder.bind(contact);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onRecyclerListener.onItemClick(view, position);
+            }
+        });
     }
 
     @Override
