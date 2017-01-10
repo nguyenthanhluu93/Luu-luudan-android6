@@ -4,8 +4,6 @@ package com.example.chihirohaku.lab_6.fragments;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -17,18 +15,14 @@ import android.view.ViewGroup;
 import com.example.chihirohaku.lab_6.DBContext;
 import com.example.chihirohaku.lab_6.R;
 import com.example.chihirohaku.lab_6.adapters.NoteAdapter;
-import com.example.chihirohaku.lab_6.eventbus.OpenFragmentEvent;
 import com.example.chihirohaku.lab_6.models.Account;
 import com.example.chihirohaku.lab_6.models.Note;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -37,16 +31,16 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NoteFragment extends Fragment {
+public class InProgressNoteFragment extends Fragment {
 
-    private static final String TAG = NoteFragment.class.toString();
+    private static final String TAG = InProgressNoteFragment.class.toString();
 
 
     @BindView(R.id.rv_note)
     RecyclerView rvNote;
     NoteAdapter noteAdapter;
 
-    public NoteFragment() {
+    public InProgressNoteFragment() {
         // Required empty public constructor
     }
 

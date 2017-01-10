@@ -1,18 +1,15 @@
 package com.example.chihirohaku.musicapp.activities;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.ColorFilter;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuInflater;
 
 import com.example.chihirohaku.musicapp.R;
+import com.example.chihirohaku.musicapp.butterknife.OpenFragmentEvent;
 import com.example.chihirohaku.musicapp.fragments.MusicViewPagerFragment;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 public class MainActivity extends BaseActivity {
 
@@ -24,7 +21,7 @@ public class MainActivity extends BaseActivity {
         this.setSupportActionBar(toolbar);
         this.getSupportActionBar().setDisplayShowHomeEnabled(false);
         this.getSupportActionBar().setDisplayShowTitleEnabled(true);
-
+        EventBus.getDefault().register(this);
         changeFragment(R.id.fr_content, new MusicViewPagerFragment(), false);
 //        int[] color = new int[] {Color.parseColor("#59000000"), Color.parseColor("#00000000")};
 //        GradientDrawable drawable = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, color);
@@ -35,5 +32,10 @@ public class MainActivity extends BaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Subscribe
+    public void onEvent(OpenFragmentEvent openFragmentEvent) {
+        changeFragment(R.id.fr_content, openFragmentEvent.getFragment(), openFragmentEvent.isAddToBackstack());
     }
 }
