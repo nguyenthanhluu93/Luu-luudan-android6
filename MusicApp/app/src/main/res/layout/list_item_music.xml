@@ -10,7 +10,7 @@
         android:id="@+id/img_music"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:scaleType="center"/>
+        android:scaleType="fitXY"/>
 
     <TextView
         android:id="@+id/tv_name_music"

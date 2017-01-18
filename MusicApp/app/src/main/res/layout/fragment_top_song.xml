@@ -1,26 +1,119 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.chihirohaku.musicapp.fragments.TopSongFragment"
-    android:background="@color/colorPrimaryLight">
+    android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="250dp" >
-
-        <ImageView
-            android:id="@+id/top_song_img_music"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="center"/>
-
-    </RelativeLayout>
-
-    <android.support.v7.widget.RecyclerView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="250dp"/>
+        android:orientation="vertical">
 
-</FrameLayout>
+        <RelativeLayout
+            android:id="@+id/rl_container_image"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2">
+
+            <ImageView
+                android:id="@+id/img_music"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:background="@drawable/bg_actionbar">
+
+                <ImageView
+                    android:id="@+id/img_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_back_black_24px"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:padding="10dp"/>
+
+                <ImageView
+                    android:id="@+id/img_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_share_black_24px"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:padding="10dp"/>
+
+                <ImageView
+                    android:id="@+id/img_favorite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_heart_outline"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/img_share"
+                    android:padding="10dp"/>
+
+                <ImageView
+                    android:id="@+id/img_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_search_black_24px"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/img_favorite"
+                    android:padding="10dp"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_below="@id/img_music"
+            android:background="@color/colorPrimaryDark"
+            android:layout_weight="2.5">
+
+            <TextView
+                android:id="@+id/tv_name_type_music"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:padding="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:text="asda"/>
+
+            <TextView
+                android:id="@+id/tv_number_music"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:layout_marginLeft="15dp"
+                android:paddingLeft="5dp"
+                android:layout_marginBottom="20dp"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_list_music"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/img_play_music"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:src="@android:drawable/ic_media_play"
+        app:layout_anchor="@id/rl_container_image"
+        app:layout_anchorGravity="bottom|right"
+        android:layout_marginRight="20dp"
+        app:backgroundTint="@color/colorAccent" />
+
+</android.support.design.widget.CoordinatorLayout>

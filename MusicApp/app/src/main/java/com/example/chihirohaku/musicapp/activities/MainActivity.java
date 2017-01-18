@@ -1,31 +1,31 @@
 package com.example.chihirohaku.musicapp.activities;
 
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.View;
 
 import com.example.chihirohaku.musicapp.R;
-import com.example.chihirohaku.musicapp.butterknife.OpenFragmentEvent;
+import com.example.chihirohaku.musicapp.eventbus.OpenFragmentEvent;
 import com.example.chihirohaku.musicapp.fragments.MusicViewPagerFragment;
+import com.example.chihirohaku.musicapp.services.RealmContext;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 public class MainActivity extends BaseActivity {
 
+    View layoutMiniPlayer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        RealmContext.init(this);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolBar);
-        this.setSupportActionBar(toolbar);
-        this.getSupportActionBar().setDisplayShowHomeEnabled(false);
-        this.getSupportActionBar().setDisplayShowTitleEnabled(true);
+
         EventBus.getDefault().register(this);
-        changeFragment(R.id.fr_content, new MusicViewPagerFragment(), false);
-//        int[] color = new int[] {Color.parseColor("#59000000"), Color.parseColor("#00000000")};
-//        GradientDrawable drawable = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, color);
-//        getSupportActionBar().setBackgroundDrawable(drawable);
+        changeFragment(R.id.fr_content, new MusicViewPagerFragment(), false, true);
+        layoutMiniPlayer = findViewById(R.id.fragment_mini_player);
+        layoutMiniPlayer.setVisibility(View.GONE);
     }
 
     @Override
@@ -36,6 +36,17 @@ public class MainActivity extends BaseActivity {
 
     @Subscribe
     public void onEvent(OpenFragmentEvent openFragmentEvent) {
-        changeFragment(R.id.fr_content, openFragmentEvent.getFragment(), openFragmentEvent.isAddToBackstack());
+        changeFragment(R.id.fr_content, openFragmentEvent.getFragment(),
+                openFragmentEvent.isAddToBackstack(),
+                openFragmentEvent.isShowToolbar());
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (getFragmentManager().getBackStackEntryCount() == 0) {
+            getSupportActionBar().show();
+        }
+        layoutMiniPlayer.setVisibility(View.GONE);
     }
 }

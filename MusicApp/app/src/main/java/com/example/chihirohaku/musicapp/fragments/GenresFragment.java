@@ -2,6 +2,7 @@ package com.example.chihirohaku.musicapp.fragments;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,9 +13,15 @@ import android.view.ViewGroup;
 
 import com.example.chihirohaku.musicapp.R;
 import com.example.chihirohaku.musicapp.adapters.MusicAdapter;
+import com.example.chihirohaku.musicapp.eventbus.UpdateRecyclerView;
 import com.example.chihirohaku.musicapp.models.ResponseMusic;
 import com.example.chihirohaku.musicapp.models.Subgenres;
-import com.example.chihirohaku.musicapp.services.DBContext;
+import com.example.chihirohaku.musicapp.models.SubgenresRealm;
+import com.example.chihirohaku.musicapp.services.RealmContext;
+import com.example.chihirohaku.musicapp.services.RetrofitContext;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
@@ -38,6 +45,17 @@ public class GenresFragment extends Fragment {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getAllMusic();
+    }
+
+    private void getAllMusic() {
+        RetrofitContext.getAllSubgenres();
+        List<SubgenresRealm> subgenresRealmList = RealmContext.getInstance().allSubgenres();
+        Log.d(TAG, subgenresRealmList.toString());
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,9 +63,15 @@ public class GenresFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_genres, container, false);
         ButterKnife.bind(this, view);
-        getAllMusic();
+        EventBus.getDefault().register(this);
         setupUI();
         return view;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     private void setupUI() {
@@ -67,25 +91,9 @@ public class GenresFragment extends Fragment {
         rvListMusics.setAdapter(musicAdapter);
     }
 
-    private void getAllMusic() {
-        DBContext.getMusicsRepos().enqueue(new Callback<List<ResponseMusic>>() {
-            @Override
-            public void onResponse(Call<List<ResponseMusic>> call, Response<List<ResponseMusic>> response) {
-                List<ResponseMusic> responseMusicList = response.body();
-                for (ResponseMusic responseMusic : responseMusicList) {
-                    if (responseMusic.getId() == 34) {
-                        Subgenres.setSubgenresList(responseMusic.getSubgenres());
-                        Log.d(TAG, responseMusic.getSubgenres().toString());
-                    }
-                }
-                setupUI();
-            }
-
-            @Override
-            public void onFailure(Call<List<ResponseMusic>> call, Throwable t) {
-                Log.d(TAG, String.format("onFailure: %s", t));
-            }
-        });
+    @Subscribe
+    public void onUpdateRecyclerView(UpdateRecyclerView updateRecyclerView) {
+        setupUI();
+        musicAdapter.notifyDataSetChanged();
     }
-
 }

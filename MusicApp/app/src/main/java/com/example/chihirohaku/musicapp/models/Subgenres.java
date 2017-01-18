@@ -2,6 +2,7 @@ package com.example.chihirohaku.musicapp.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,13 +45,4 @@ public class Subgenres {
                 '}';
     }
 
-    public static List<Subgenres> subgenresList = new ArrayList<>();
-
-    public static List<Subgenres> getSubgenresList() {
-        return subgenresList;
-    }
-
-    public static void setSubgenresList(List<Subgenres> subgenresList) {
-        Subgenres.subgenresList = subgenresList;
-    }
 }
