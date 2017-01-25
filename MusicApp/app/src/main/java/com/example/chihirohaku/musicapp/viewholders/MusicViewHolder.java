@@ -1,14 +1,14 @@
 package com.example.chihirohaku.musicapp.viewholders;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.chihirohaku.musicapp.R;
-import com.example.chihirohaku.musicapp.models.Subgenres;
 import com.example.chihirohaku.musicapp.models.SubgenresRealm;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by Chihirohaku on 1/10/2017.
@@ -25,13 +25,11 @@ public class MusicViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void binView(SubgenresRealm subgenresRealm) {
-//            Drawable drawable = getgetResources().getDrawable(getResources()
-//                    .getIdentifier("genre_" + subgenres.getId_img(), "drawable", getPackageName()));
-//        imgTypeMusic.setBackgroundDrawable(drawable);
 
         String name = "genre_" + subgenresRealm.getId();
         int id  = this.itemView.getContext().getResources().getIdentifier( name, "drawable", this.itemView.getContext().getPackageName());
-        imgTypeMusic.setImageDrawable(this.itemView.getContext().getDrawable(id));
+        Log.d("luunt1111111111", String.format("name: %s", id));
+        Picasso.with(itemView.getContext()).load(id).into(imgTypeMusic);
 
         tvNameMusic.setText(subgenresRealm.getNameSubgenres());
     }

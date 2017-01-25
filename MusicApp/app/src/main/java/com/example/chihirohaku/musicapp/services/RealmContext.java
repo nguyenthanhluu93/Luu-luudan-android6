@@ -47,6 +47,12 @@ public class RealmContext {
         realm.commitTransaction();
     }
 
+    public void updateGenresLike(SubgenresRealm subgenresRealm, boolean isLike) {
+        realm.beginTransaction();
+        subgenresRealm.setLike(isLike);
+        realm.commitTransaction();
+    }
+
     private static RealmContext instance;
     public static RealmContext getInstance() {
         return instance;

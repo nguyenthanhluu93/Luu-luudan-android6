@@ -51,31 +51,32 @@ public class RetrofitContext {
             public void onResponse(Call<List<ResponseMusic>> call, Response<List<ResponseMusic>> response) {
                 List<ResponseMusic> responseMusicList = response.body();
                 Log.d("tuanoc", responseMusicList.toString());
-                List<SubgenresRealm> subgenresRealmList = new ArrayList<SubgenresRealm>();
-                if (RealmContext.getInstance().allSubgenres().size() != 0) {
-                    RealmContext.getInstance().deleteAll();
-                }
-
-                for (ResponseMusic responseMusic : responseMusicList) {
-                    if (responseMusic.getId() == 34) {
-                        List<Subgenres> subgenresList = responseMusic.getSubgenres();
-                        for (int i = 0; i< subgenresList.size(); i++) {
-                            SubgenresRealm subgenresRealm = new SubgenresRealm();
-                            subgenresRealm.setId(subgenresList.get(i).getId_img());
-                            subgenresRealm.setNameSubgenres(subgenresList.get(i).getTranslationKey());
-                            subgenresRealmList.add(subgenresRealm);
+                if (RealmContext.getInstance().allSubgenres().size() == 0) {
+                    List<SubgenresRealm> subgenresRealmList = new ArrayList<SubgenresRealm>();
+                    for (ResponseMusic responseMusic : responseMusicList) {
+                        if (responseMusic.getId() == 34) {
+                            List<Subgenres> subgenresList = responseMusic.getSubgenres();
+                            for (int i = 0; i< subgenresList.size(); i++) {
+                                SubgenresRealm subgenresRealm = new SubgenresRealm();
+                                subgenresRealm.setId(subgenresList.get(i).getId_img());
+                                subgenresRealm.setNameSubgenres(subgenresList.get(i).getTranslationKey());
+                                subgenresRealmList.add(subgenresRealm);
+                            }
                         }
                     }
+                    RealmContext.getInstance().insert(subgenresRealmList);
+                    UpdateRecyclerView updateRecyclerView = new UpdateRecyclerView();
+                    EventBus.getDefault().post(updateRecyclerView);
+                } else {
+                    RealmContext.getInstance().allSubgenres();
                 }
-                RealmContext.getInstance().insert(subgenresRealmList);
-                UpdateRecyclerView updateRecyclerView = new UpdateRecyclerView();
-                EventBus.getDefault().post(updateRecyclerView);
             }
 
             @Override
             public void onFailure(Call<List<ResponseMusic>> call, Throwable t) {
                 Log.d("luunt", String.format("onFailure: %s", t));
                 RealmContext.getInstance().allSubgenres();
+                Log.d("luunt123", String.format(RealmContext.getInstance().allSubgenres().toString()));
             }
         });
     }

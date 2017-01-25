@@ -13,23 +13,16 @@ import android.view.ViewGroup;
 
 import com.example.chihirohaku.musicapp.R;
 import com.example.chihirohaku.musicapp.adapters.MusicAdapter;
-import com.example.chihirohaku.musicapp.eventbus.UpdateRecyclerView;
-import com.example.chihirohaku.musicapp.models.ResponseMusic;
-import com.example.chihirohaku.musicapp.models.Subgenres;
 import com.example.chihirohaku.musicapp.models.SubgenresRealm;
 import com.example.chihirohaku.musicapp.services.RealmContext;
 import com.example.chihirohaku.musicapp.services.RetrofitContext;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,7 +56,7 @@ public class GenresFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_genres, container, false);
         ButterKnife.bind(this, view);
-        EventBus.getDefault().register(this);
+//        EventBus.getDefault().register(this);
         setupUI();
         return view;
     }
@@ -91,9 +84,9 @@ public class GenresFragment extends Fragment {
         rvListMusics.setAdapter(musicAdapter);
     }
 
-    @Subscribe
-    public void onUpdateRecyclerView(UpdateRecyclerView updateRecyclerView) {
-        setupUI();
-        musicAdapter.notifyDataSetChanged();
-    }
+//    @Subscribe
+//    public void onUpdateRecyclerView(UpdateRecyclerView updateRecyclerView) {
+//        setupUI();
+//        musicAdapter.notifyDataSetChanged();
+//    }
 }

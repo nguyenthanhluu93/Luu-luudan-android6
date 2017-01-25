@@ -2,11 +2,10 @@ package com.example.chihirohaku.musicapp.models;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Chihirohaku on 1/12/2017.
+ * Created by User on 1/19/2017.
  */
 
 public class Entry {

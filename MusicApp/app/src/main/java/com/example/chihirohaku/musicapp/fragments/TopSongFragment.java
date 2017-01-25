@@ -6,7 +6,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,26 +14,18 @@ import android.widget.TextView;
 
 import com.example.chihirohaku.musicapp.R;
 import com.example.chihirohaku.musicapp.adapters.SongAdapter;
-import com.example.chihirohaku.musicapp.eventbus.OpenFragmentEvent;
 import com.example.chihirohaku.musicapp.eventbus.ShowMiniEvent;
 import com.example.chihirohaku.musicapp.eventbus.UpdateRecyclerView;
-import com.example.chihirohaku.musicapp.models.Entry;
-import com.example.chihirohaku.musicapp.models.ResponseSong;
-import com.example.chihirohaku.musicapp.models.Subgenres;
 import com.example.chihirohaku.musicapp.models.SubgenresRealm;
 import com.example.chihirohaku.musicapp.services.RealmContext;
 import com.example.chihirohaku.musicapp.services.RetrofitContext;
+import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -82,10 +73,16 @@ public class TopSongFragment extends Fragment {
                 getActivity().onBackPressed();
             }
         });
-        imgMusic.setOnClickListener(new View.OnClickListener() {
+        imgFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (subgenres.isLike()) {
+                    imgFavorite.setImageResource(R.drawable.ic_heart_outline);
+                    RealmContext.getInstance().updateGenresLike(subgenres, false);
+                } else {
+                    imgFavorite.setImageResource(R.drawable.ic_heart);
+                    RealmContext.getInstance().updateGenresLike(subgenres, true);
+                }
             }
         });
         return view;
@@ -95,8 +92,12 @@ public class TopSongFragment extends Fragment {
         tvNameType.setText(subgenres.getNameSubgenres());
         String name = "genre_" + subgenres.getId();
         int id  = getContext().getResources().getIdentifier( name, "drawable", getContext().getPackageName());
-        imgMusic.setImageDrawable(getContext().getDrawable(id));
-
+        Picasso.with(getContext()).load(id).into(imgMusic);
+        if (subgenres.isLike()) {
+            imgFavorite.setImageResource(R.drawable.ic_heart);
+        } else {
+            imgFavorite.setImageResource(R.drawable.ic_heart_outline);
+        }
         songAdapter = new SongAdapter();
         songAdapter.setSubgenresRealm(subgenres);
         listMusic.setLayoutManager(new LinearLayoutManager(getActivity()));
