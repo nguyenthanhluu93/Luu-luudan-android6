@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.chihirohaku.musicapp.R;
+import com.example.chihirohaku.musicapp.fragments.PlaylistFragment;
 import com.example.chihirohaku.musicapp.viewholders.GenresLikedViewHolder;
 
 /**
@@ -22,11 +23,11 @@ public class GenresLikedAdapter extends RecyclerView.Adapter<GenresLikedViewHold
 
     @Override
     public void onBindViewHolder(GenresLikedViewHolder holder, int position) {
-//        holder.binView();
+        holder.binView(PlaylistFragment.subgenresRealmsLiked.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return PlaylistFragment.subgenresRealmsLiked.size();
     }
 }

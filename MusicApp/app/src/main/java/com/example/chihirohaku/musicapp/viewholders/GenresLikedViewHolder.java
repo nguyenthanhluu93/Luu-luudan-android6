@@ -24,8 +24,6 @@ public class GenresLikedViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void binView(SubgenresRealm subgenresRealm) {
-        if (subgenresRealm.isLike() == true) {
             tvTitle.setText(subgenresRealm.getNameSubgenres());
-        }
     }
 }
