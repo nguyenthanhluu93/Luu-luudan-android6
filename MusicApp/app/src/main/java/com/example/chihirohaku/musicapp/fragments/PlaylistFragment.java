@@ -43,9 +43,6 @@ public class PlaylistFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_playlist, container, false);
         ButterKnife.bind(this, view);
         List<SubgenresRealm> subgenresRealms = RealmContext.getInstance().allSubgenres();
-        if (subgenresRealmsLiked.size() != 0) {
-            subgenresRealmsLiked.clear();
-        }
         subgenresRealmsLiked = new ArrayList<>();
         for (SubgenresRealm subgenresRealm : subgenresRealms) {
             if (subgenresRealm.isLike() == true) {

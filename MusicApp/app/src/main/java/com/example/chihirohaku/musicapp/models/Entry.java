@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
- * Created by User on 1/19/2017.
+ * Created by Chihirohaku on 2/7/2017.
  */
 
 public class Entry {
@@ -54,5 +54,4 @@ public class Entry {
                 ", imArtist=" + imArtist +
                 '}';
     }
-
 }

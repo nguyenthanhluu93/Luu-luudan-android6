@@ -1,9 +1,12 @@
 package com.example.chihirohaku.musicapp.services;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.example.chihirohaku.musicapp.eventbus.UpdateRecyclerView;
 import com.example.chihirohaku.musicapp.models.Entry;
+import com.example.chihirohaku.musicapp.models.RequestData;
+import com.example.chihirohaku.musicapp.models.ResponseDataSong;
 import com.example.chihirohaku.musicapp.models.ResponseMusic;
 import com.example.chihirohaku.musicapp.models.ResponseSong;
 import com.example.chihirohaku.musicapp.models.SongRealm;
@@ -15,6 +18,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 
+import hybridmediaplayer.Hybrid;
 import io.realm.RealmList;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,12 +41,21 @@ public class RetrofitContext {
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
+    public static final Retrofit SONG_RETROFIT = new Retrofit.Builder()
+            .baseUrl("http://api.mp3.zing.vn/api/mobile/search/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
+
     public static Call<List<ResponseMusic>> getMusicsRepos() {
         return GETMUSIC_RETROFIT.create(GetAllMusicServices.class).getAllMusic();
     }
 
     public static Call<ResponseSong> getAllSongRepos(String id) {
         return GETSONG_RETROFIT.create(GetSongMusicServices.class).getAllSongByType(id);
+    }
+
+    public static Call<ResponseDataSong> getDataSongRepos(String requestdata) {
+        return SONG_RETROFIT.create(GetDataSongServices.class).getTopMusic(requestdata);
     }
 
     public static void getAllSubgenres() {
@@ -114,6 +127,24 @@ public class RetrofitContext {
                 }
                 UpdateRecyclerView updateRecyclerView = new UpdateRecyclerView();
                 EventBus.getDefault().post(updateRecyclerView);
+            }
+        });
+    }
+
+    public static void getDataSong(SongRealm songRealm, final Context context) {
+        RequestData requestData = new RequestData(songRealm);
+        RetrofitContext.getDataSongRepos(requestData.toString()).enqueue(new Callback<ResponseDataSong>() {
+            @Override
+            public void onResponse(Call<ResponseDataSong> call, Response<ResponseDataSong> response) {
+                ResponseDataSong responseDataSong = response.body();
+                String linkSource = responseDataSong.getDocses().get(1).getSource().getLinkSource().toString();
+                MusicContext.getInstance(context).playMusic(linkSource);
+                Log.d("aaaaa", responseDataSong.toString());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseDataSong> call, Throwable t) {
+
             }
         });
     }
